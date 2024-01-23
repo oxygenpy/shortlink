@@ -1,17 +1,15 @@
 package com.oxygen.shortlink.admin.dto.resp;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.oxygen.shortlink.admin.common.serialize.PhoneDesensitizationSerializer;
 import lombok.Data;
 
 /**
  * @author LiJinLong
- * @description 用户返回参数响应
+ * @description 用户返回无脱敏参数响应
  * @create 2024-01-20 21:52
  * @date 1.0
  */
 @Data
-public class UserRespDTO {
+public class UserActualRespDTO {
     /**
      * id
      */
@@ -30,7 +28,6 @@ public class UserRespDTO {
     /**
      * 手机号
      */
-    @JsonSerialize(using = PhoneDesensitizationSerializer.class)
     private String phone;
 
     /**
