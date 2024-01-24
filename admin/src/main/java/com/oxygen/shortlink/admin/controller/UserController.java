@@ -3,13 +3,12 @@ package com.oxygen.shortlink.admin.controller;
 import cn.hutool.core.bean.BeanUtil;
 import com.oxygen.shortlink.admin.common.convention.result.Result;
 import com.oxygen.shortlink.admin.common.convention.result.Results;
+import com.oxygen.shortlink.admin.dto.req.UserRegisterReqDTO;
 import com.oxygen.shortlink.admin.dto.resp.UserActualRespDTO;
 import com.oxygen.shortlink.admin.dto.resp.UserRespDTO;
 import com.oxygen.shortlink.admin.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author LiJinLong
@@ -26,7 +25,7 @@ public class UserController {
     /**
      * 根据用户名查询用户
      */
-    @GetMapping("/api/shortlink/v1/user/{username}")
+    @GetMapping("/api/short-link/v1/user/{username}")
     public Result<UserRespDTO> getUserByUsername(@PathVariable String username) {
         return Results.success(userService.getUserByUsername(username));
     }
@@ -35,9 +34,26 @@ public class UserController {
     /**
      * 根据用户名查询用户
      */
-    @GetMapping("/api/shortlink/v1/actual/user/{username}")
+    @GetMapping("/api/short-link/v1/actual/user/{username}")
     public Result<UserActualRespDTO> getActualUserByUsername(@PathVariable String username) {
         return Results.success(BeanUtil.toBean(userService.getUserByUsername(username), UserActualRespDTO.class));
+    }
+
+    /**
+     * 查询用户名是否存在
+     * @param username
+     * @return
+     */
+    @GetMapping("/api/short-link/v1/user/has-username")
+    public Result<Boolean> hasUsername(@RequestParam("username") String username) {
+        return Results.success(userService.hasUsername(username));
+    }
+
+
+    @PostMapping("/api/short-link/v1/user/")
+    public Result<Void> register(@RequestBody UserRegisterReqDTO requestParam) {
+        userService.register(requestParam);
+        return Results.success();
     }
 
 }
