@@ -3,6 +3,7 @@ package com.oxygen.shortlink.admin.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.oxygen.shortlink.admin.dao.entity.UserDO;
 import com.oxygen.shortlink.admin.dto.req.UserRegisterReqDTO;
+import com.oxygen.shortlink.admin.dto.req.UserUpdateReqDTO;
 import com.oxygen.shortlink.admin.dto.resp.UserRespDTO;
 
 /**
@@ -33,4 +34,9 @@ public interface UserService extends IService<UserDO> {
      */
     void register(UserRegisterReqDTO requestParam);
 
+    /**
+     * 修改用户
+     * @param requestParam
+     */
+    void update(UserUpdateReqDTO requestParam);
 }
