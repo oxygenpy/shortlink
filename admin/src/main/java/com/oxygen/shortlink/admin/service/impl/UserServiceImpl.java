@@ -152,13 +152,29 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
 
     /**
      * 检查用户是否登录
+     *
      * @param username 用户名
-     * @param token
+     * @param token    登录token
      * @return
      */
     @Override
     public Boolean checkLogin(String username, String token) {
         return stringRedisTemplate.opsForHash().get("login_" + username, token) != null;
+    }
+
+    /**
+     * 检查用户是否登录
+     *
+     * @param username 用户名
+     * @param token    登录token
+     * @return
+     */
+    @Override
+    public void logout(String username, String token) {
+        if (!checkLogin(username, token)) {
+            throw new ClientException("用户未登录或登录过期");
+        }
+        stringRedisTemplate.delete("login_" + username);
     }
 
 
