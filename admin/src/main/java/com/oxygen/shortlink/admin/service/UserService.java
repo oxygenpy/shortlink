@@ -2,8 +2,10 @@ package com.oxygen.shortlink.admin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.oxygen.shortlink.admin.dao.entity.UserDO;
+import com.oxygen.shortlink.admin.dto.req.UserLoginReqDTO;
 import com.oxygen.shortlink.admin.dto.req.UserRegisterReqDTO;
 import com.oxygen.shortlink.admin.dto.req.UserUpdateReqDTO;
+import com.oxygen.shortlink.admin.dto.resp.UserLoginRespDTO;
 import com.oxygen.shortlink.admin.dto.resp.UserRespDTO;
 
 /**
@@ -39,4 +41,19 @@ public interface UserService extends IService<UserDO> {
      * @param requestParam
      */
     void update(UserUpdateReqDTO requestParam);
+
+    /**
+     * 登录用户
+     * @param requestParam 用户名&密码
+     * @return token
+     */
+    UserLoginRespDTO login(UserLoginReqDTO requestParam);
+
+    /**
+     * 检查用户是否登录
+     * @param username 用户名
+     * @param token
+     * @return
+     */
+    Boolean checkLogin(String username, String token);
 }
