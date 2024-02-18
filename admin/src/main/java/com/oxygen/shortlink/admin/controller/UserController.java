@@ -35,7 +35,7 @@ public class UserController {
 
 
     /**
-     * 根据用户名查询用户
+     * 根据用户名查询真实用户
      */
     @GetMapping("/api/short-link/v1/actual/user/{username}")
     public Result<UserActualRespDTO> getActualUserByUsername(@PathVariable String username) {
