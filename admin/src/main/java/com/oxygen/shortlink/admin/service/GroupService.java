@@ -11,4 +11,9 @@ import com.oxygen.shortlink.admin.dao.entity.GroupDO;
  */
 public interface GroupService extends IService<GroupDO> {
 
+    /**
+     * 新增短连接分组
+     * @param groupName 短连接分组名称
+     */
+    void saveGroup(String groupName);
 }
