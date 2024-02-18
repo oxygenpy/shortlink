@@ -1,0 +1,14 @@
+
+j
+java:S1192‡"GDefine a constant instead of duplicating this literal "login_" 3 times.(ÓÎŸøøÿÿÿÿ8œ¤ÌÖÔ1
+s	java:S117‡"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÓÎŸøøÿÿÿÿ8¤ÌÖÔ1
+E
+java:S5411W"(Use a primitive boolean expression here.(ªäí8¤ÌÖÔ1
+K
+java:S5411®"(Use a primitive boolean expression here.(œî¾‘ÿÿÿÿÿ8¤ÌÖÔ1
+g
+java:S2259‰"DA "NullPointerException" could be thrown; "isTrue" is nullable here.(Éëç‡øÿÿÿÿ8·¤ÌÖÔ1
+8
+java:S3626b"Remove this redundant jump.(ûÁİ…8¼¤ÌÖÔ1
+O
+java:S1135r"2Complete the task associated to this TODO comment.(©Ûª¢8¾¤ÌÖÔ1
