@@ -34,12 +34,19 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implemen
             // TODO username
         }while (hasGid(gid, null));
 
-        GroupDO groupDO = GroupDO.builder().gid(gid).name(groupName).username(null).build();
+        GroupDO groupDO = GroupDO.builder()
+                .gid(gid)
+                .name(groupName)
+                .username(null)
+                .sortOrder(0)
+                .build();
         baseMapper.insert(groupDO);
     }
 
     private boolean hasGid(String gid, String username) {
-        LambdaQueryWrapper<GroupDO> queryWrapper = Wrappers.lambdaQuery(GroupDO.class).eq(GroupDO::getGid, gid).eq(GroupDO::getUsername, username);
+        LambdaQueryWrapper<GroupDO> queryWrapper = Wrappers.lambdaQuery(GroupDO.class)
+                .eq(GroupDO::getGid, gid)
+                .eq(GroupDO::getUsername, username);
         GroupDO isHasFlag = baseMapper.selectOne(queryWrapper);
         return isHasFlag != null;
     }
