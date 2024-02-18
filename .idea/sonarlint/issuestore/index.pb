@@ -87,3 +87,5 @@ Kadmin/src/main/java/com/oxygen/shortlink/admin/toolkit/RandomGenerator.java,9\
 Padmin/src/main/java/com/oxygen/shortlink/admin/dto/req/ShortLinkGroupReqDTO.java,9\4\94977519565b2d889d07d61702124a0081e43850
 z
 Jadmin/src/main/java/com/oxygen/shortlink/admin/common/database/BaseDO.java,e\2\e21cd7a3317b7b30d4f55f7cf83f3de3a64b07dd
+‚
+Radmin/src/main/java/com/oxygen/shortlink/admin/dto/resp/ShortLinkGroupRespDTO.java,b\6\b66474e92043a1c61f2d6abb0f27badcd489aa78

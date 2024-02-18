@@ -2,6 +2,9 @@ package com.oxygen.shortlink.admin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.oxygen.shortlink.admin.dao.entity.GroupDO;
+import com.oxygen.shortlink.admin.dto.resp.ShortLinkGroupRespDTO;
+
+import java.util.List;
 
 /**
  * @author LiJinLong
@@ -16,4 +19,11 @@ public interface GroupService extends IService<GroupDO> {
      * @param groupName 短连接分组名称
      */
     void saveGroup(String groupName);
+
+    /**
+     * 查询短连接分组集合
+     * @return
+     */
+    List<ShortLinkGroupRespDTO>  listGroup();
+
 }
