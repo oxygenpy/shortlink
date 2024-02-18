@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.oxygen.shortlink.admin.common.biz.user.UserContext;
 import com.oxygen.shortlink.admin.dao.entity.GroupDO;
 import com.oxygen.shortlink.admin.dao.mapper.GroupMapper;
 import com.oxygen.shortlink.admin.dto.resp.ShortLinkGroupRespDTO;
@@ -35,13 +36,12 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implemen
         String gid = null;
         do {
             gid = RandomGenerator.generateRandom();
-            // TODO username
-        }while (hasGid(gid, null));
+        }while (hasGid(gid, UserContext.getUsername()));
 
         GroupDO groupDO = GroupDO.builder()
                 .gid(gid)
                 .name(groupName)
-                .username(null)
+                .username(UserContext.getUsername())
                 .sortOrder(0)
                 .build();
         baseMapper.insert(groupDO);
@@ -55,8 +55,7 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implemen
     @Override
     public List<ShortLinkGroupRespDTO> listGroup() {
         LambdaQueryWrapper<GroupDO> queryWrapper = Wrappers.lambdaQuery(GroupDO.class)
-                // TODO username
-                .eq(GroupDO::getUsername, "mading")
+                .eq(GroupDO::getUsername, UserContext.getUsername())
                 .eq(GroupDO::getDelFlag, 0)
                 .orderByDesc(GroupDO::getSortOrder, GroupDO::getUpdateTime);
         List<GroupDO> groupDOList = baseMapper.selectList(queryWrapper);
