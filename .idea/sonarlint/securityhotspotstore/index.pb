@@ -562,3 +562,7 @@ G.idea/sonarlint/issuestore/8/0/8053a56ffafef9a12135c9297b871dd198fa4113,4\7\47
 Xproject/src/main/java/com/oxygen/shortlink/project/config/RBloomFilterConfiguration.java,b\8\b853e6fb1d52b614ba94cca0128e6df8b491c604
 ‰
 Yproject/src/main/java/com/oxygen/shortlink/project/common/web/GlobalExceptionHandler.java,7\e\7e78cc7f89c393f161dcf661eabf5e6a2f477b3f
+„
+Tproject/src/main/java/com/oxygen/shortlink/project/config/DataBaseConfiguration.java,8\2\82437b73b44011d8b40bf9ea01a066cddb1b6cef
+€
+Padmin/src/main/java/com/oxygen/shortlink/admin/config/DataBaseConfiguration.java,1\4\141529e21cf1000009a381eded2ae4d1207ffd90
