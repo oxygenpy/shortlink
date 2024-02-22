@@ -1,4 +1,4 @@
-package com.oxygen.shortlink.project.dto.resp;
+package com.oxygen.shortlink.admin.remote.dto.resp;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;

@@ -570,3 +570,17 @@ Padmin/src/main/java/com/oxygen/shortlink/admin/config/DataBaseConfiguration.jav
 Sproject/src/main/java/com/oxygen/shortlink/project/dto/req/ShortLinkPageReqDTO.java,d\5\d52c59fd34aea938122da70b9cea1ec77a92cb83
 Ö
 Uproject/src/main/java/com/oxygen/shortlink/project/dto/resp/ShortLinkPageRespDTO.java,b\e\bec487b46ada1cb07e576bf8262254541e57d67e
+Å
+Qadmin/src/main/java/com/oxygen/shortlink/admin/remote/ShortLinlRemoteService.java,1\d\1d4e10755f66363b9cbf494a9b24fcc4a5d36b95
+Å
+Qadmin/src/main/java/com/oxygen/shortlink/admin/remote/ShortLinKRemoteService.java,6\3\63a0be50b18aec8cbfd8684ea96a65d509cf8c6f
+à
+Xadmin/src/main/java/com/oxygen/shortlink/admin/remote/dto/req/ShortLinkCreateReqDTO.java,7\3\7367c65bc1fd09c459f13577a7057eee467ccf67
+Ü
+Vadmin/src/main/java/com/oxygen/shortlink/admin/remote/dto/req/ShortLinkPageReqDTO.java,a\b\ab9fdc2a11ad335aca60c967fee03cb808de9181
+ä
+Zadmin/src/main/java/com/oxygen/shortlink/admin/remote/dto/resp/ShortLinkCreateRespDTO.java,a\c\aca9e973a4276f5776937578783eafabb65751e9
+à
+Xadmin/src/main/java/com/oxygen/shortlink/admin/remote/dto/resp/ShortLinkPageRespDTO.java,2\f\2f248f390d88527613240871ecb10518d16567c7
+Ç
+Radmin/src/main/java/com/oxygen/shortlink/admin/controller/ShortLinkController.java,d\f\df6a7e8668f3110f271391a98ec50acbe15304ef

@@ -9,6 +9,7 @@ import com.oxygen.shortlink.project.dto.resp.ShortLinkCreateRespDTO;
 import com.oxygen.shortlink.project.dto.resp.ShortLinkPageRespDTO;
 import com.oxygen.shortlink.project.service.ShortLinkService;
 import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,8 +42,8 @@ public class ShortLinkController {
      * @param requestParam
      * @return
      */
-    @PostMapping("/api/short-link/v1/page")
-    private Result<IPage<ShortLinkPageRespDTO>> pageShortLink(@RequestBody ShortLinkPageReqDTO requestParam) {
+    @GetMapping("/api/short-link/v1/page")
+    private Result<IPage<ShortLinkPageRespDTO>> pageShortLink(ShortLinkPageReqDTO requestParam) {
         return Results.success(shortLinkService.pageShortLink(requestParam));
     }
 
