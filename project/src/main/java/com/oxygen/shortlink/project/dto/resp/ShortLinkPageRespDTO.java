@@ -1,27 +1,19 @@
-package com.oxygen.shortlink.project.dao.entity;
+package com.oxygen.shortlink.project.dto.resp;
 
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.oxygen.shortlink.project.common.database.BaseDO;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 /**
  * @author LiJinLong
- * @description 短链接实体
- * @create 2024-02-19 17:07
+ * @description 短链接分页返回
+ * @create 2024-02-21 20:11
  * @date 1.0
  */
 @Data
-@TableName("t_link")
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-public class ShortLinkDO extends BaseDO {
+public class ShortLinkPageRespDTO {
 
     /**
      * id
@@ -74,6 +66,12 @@ public class ShortLinkDO extends BaseDO {
     private int createdType;
 
     /**
+     * 创建时间
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date createDate;
+
+    /**
      * 有效期类型 0：永久有效 1：用户自定义
      */
     private int validDateType;
@@ -81,6 +79,7 @@ public class ShortLinkDO extends BaseDO {
     /**
      * 有效期
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date validDate;
 
     /**
@@ -88,5 +87,4 @@ public class ShortLinkDO extends BaseDO {
      */
     @TableField("`describe`")
     private String describe;
-
 }

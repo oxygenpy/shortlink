@@ -1,9 +1,12 @@
 package com.oxygen.shortlink.project.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.oxygen.shortlink.project.dao.entity.ShortLinkDO;
 import com.oxygen.shortlink.project.dto.req.ShortLinkCreateReqDTO;
+import com.oxygen.shortlink.project.dto.req.ShortLinkPageReqDTO;
 import com.oxygen.shortlink.project.dto.resp.ShortLinkCreateRespDTO;
+import com.oxygen.shortlink.project.dto.resp.ShortLinkPageRespDTO;
 
 /**
  * @author LiJinLong
@@ -18,4 +21,11 @@ public interface ShortLinkService extends IService<ShortLinkDO> {
      * @return
      */
     ShortLinkCreateRespDTO createShortLink(ShortLinkCreateReqDTO requestParam);
+
+    /**
+     * 短链接分页查询
+     * @param requestParam
+     * @return
+     */
+    IPage<ShortLinkPageRespDTO> pageShortLink(ShortLinkPageReqDTO requestParam);
 }
