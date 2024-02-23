@@ -6,13 +6,13 @@ import com.oxygen.shortlink.project.common.convention.result.Results;
 import com.oxygen.shortlink.project.dto.req.ShortLinkCreateReqDTO;
 import com.oxygen.shortlink.project.dto.req.ShortLinkPageReqDTO;
 import com.oxygen.shortlink.project.dto.resp.ShortLinkCreateRespDTO;
+import com.oxygen.shortlink.project.dto.resp.ShortLinkGroupCountRespDTO;
 import com.oxygen.shortlink.project.dto.resp.ShortLinkPageRespDTO;
 import com.oxygen.shortlink.project.service.ShortLinkService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author LiJinLong
@@ -47,5 +47,15 @@ public class ShortLinkController {
         return Results.success(shortLinkService.pageShortLink(requestParam));
     }
 
+
+    /**
+     * 查询分组下短链接数量
+     * @param requestParam
+     * @return
+     */
+    @GetMapping("/api/short-link/v1/count")
+    private Result<List<ShortLinkGroupCountRespDTO>> listGroupShortLinkCount(@RequestParam("requestParam") List<String> requestParam) {
+        return Results.success(shortLinkService.listGroupShortLinkCount(requestParam));
+    }
 
 }

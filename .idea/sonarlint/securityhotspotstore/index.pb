@@ -571,8 +571,6 @@ Sproject/src/main/java/com/oxygen/shortlink/project/dto/req/ShortLinkPageReqDTO.
 Ö
 Uproject/src/main/java/com/oxygen/shortlink/project/dto/resp/ShortLinkPageRespDTO.java,b\e\bec487b46ada1cb07e576bf8262254541e57d67e
 Å
-Qadmin/src/main/java/com/oxygen/shortlink/admin/remote/ShortLinlRemoteService.java,1\d\1d4e10755f66363b9cbf494a9b24fcc4a5d36b95
-Å
 Qadmin/src/main/java/com/oxygen/shortlink/admin/remote/ShortLinKRemoteService.java,6\3\63a0be50b18aec8cbfd8684ea96a65d509cf8c6f
 à
 Xadmin/src/main/java/com/oxygen/shortlink/admin/remote/dto/req/ShortLinkCreateReqDTO.java,7\3\7367c65bc1fd09c459f13577a7057eee467ccf67
@@ -584,3 +582,7 @@ Zadmin/src/main/java/com/oxygen/shortlink/admin/remote/dto/resp/ShortLinkCreateR
 Xadmin/src/main/java/com/oxygen/shortlink/admin/remote/dto/resp/ShortLinkPageRespDTO.java,2\f\2f248f390d88527613240871ecb10518d16567c7
 Ç
 Radmin/src/main/java/com/oxygen/shortlink/admin/controller/ShortLinkController.java,d\f\df6a7e8668f3110f271391a98ec50acbe15304ef
+ã
+[project/src/main/java/com/oxygen/shortlink/project/dto/resp/ShortLinkGroupCountRespDTO.java,b\e\bead7d7e437e8494fe738dea7eddc5cca3ffc93e
+é
+^admin/src/main/java/com/oxygen/shortlink/admin/remote/dto/resp/ShortLinkGroupCountRespDTO.java,5\9\59316d8212b04e71feba0c5354821a7c78c64abf

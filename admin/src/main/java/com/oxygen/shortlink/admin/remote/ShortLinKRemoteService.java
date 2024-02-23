@@ -9,9 +9,11 @@ import com.oxygen.shortlink.admin.common.convention.result.Result;
 import com.oxygen.shortlink.admin.remote.dto.req.ShortLinkCreateReqDTO;
 import com.oxygen.shortlink.admin.remote.dto.req.ShortLinkPageReqDTO;
 import com.oxygen.shortlink.admin.remote.dto.resp.ShortLinkCreateRespDTO;
+import com.oxygen.shortlink.admin.remote.dto.resp.ShortLinkGroupCountRespDTO;
 import com.oxygen.shortlink.admin.remote.dto.resp.ShortLinkPageRespDTO;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author LiJinLong
@@ -48,6 +50,17 @@ public interface ShortLinKRemoteService {
         });
     }
 
-
+    /**
+     * 查询分组下短链接数量
+     * @param requestParam
+     * @return
+     */
+    default Result<List<ShortLinkGroupCountRespDTO>> listGroupShortLinkCount(List<String> requestParam) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("requestParam", requestParam);
+        String resultPageStr = HttpUtil.get("http://localhost:8001/api/short-link/v1/count", map);
+        return JSON.parseObject(resultPageStr, new TypeReference<>() {
+        });
+    }
 
 }

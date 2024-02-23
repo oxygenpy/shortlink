@@ -1,0 +1,5 @@
+
+H
+java:S2201O"+The return value of "collect" must be used.(úÁ÷ﬂ8Å∆ﬂÖ›1
+o
+java:S6204O"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(úÁ÷ﬂ8Å∆ﬂÖ›1
