@@ -1,5 +1,5 @@
 
 H
-java:S2201O"+The return value of "collect" must be used.(œçÖß8Æß…İ1
+java:S2201Z"+The return value of "collect" must be used.(œçÖß8Ë˜ú§İ1
 o
-java:S6204O"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(œçÖß8Æß…İ1
+java:S6204Z"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(œçÖß8Ë˜ú§İ1
