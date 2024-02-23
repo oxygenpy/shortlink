@@ -101,7 +101,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
                 } catch (DuplicateKeyException e) {
                     throw new ClientException(USER_EXIST);
                 }
-                groupService.saveGroup("默认分组");
+                groupService.saveGroup(requestParam.getUsername(), "默认分组");
                 userRegisterCachePenetrationBloomFilter.add(requestParam.getUsername());
                 return;
             }else {

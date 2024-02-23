@@ -44,6 +44,17 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implemen
      */
     @Override
     public void saveGroup(String groupName) {
+        saveGroup(UserContext.getUsername(), groupName);
+    }
+
+    /**
+     * 新增用户时设置分组
+     *
+     * @param username
+     * @param groupName
+     */
+    @Override
+    public void saveGroup(String username, String groupName) {
         String gid = null;
         do {
             gid = RandomGenerator.generateRandom();
@@ -52,7 +63,7 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implemen
         GroupDO groupDO = GroupDO.builder()
                 .gid(gid)
                 .name(groupName)
-                .username(UserContext.getUsername())
+                .username(username)
                 .sortOrder(0)
                 .build();
         baseMapper.insert(groupDO);
