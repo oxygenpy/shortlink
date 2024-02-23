@@ -17,6 +17,7 @@ import com.oxygen.shortlink.admin.dto.req.UserRegisterReqDTO;
 import com.oxygen.shortlink.admin.dto.req.UserUpdateReqDTO;
 import com.oxygen.shortlink.admin.dto.resp.UserLoginRespDTO;
 import com.oxygen.shortlink.admin.dto.resp.UserRespDTO;
+import com.oxygen.shortlink.admin.service.GroupService;
 import com.oxygen.shortlink.admin.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.redisson.api.RBloomFilter;
@@ -47,6 +48,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
     private final RedissonClient redissonClient;
 
     private final StringRedisTemplate stringRedisTemplate;
+
+    private final GroupService groupService;
 
     /**
      * 根据用户名获取用户
@@ -98,6 +101,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
                 } catch (DuplicateKeyException e) {
                     throw new ClientException(USER_EXIST);
                 }
+                groupService.saveGroup("默认分组");
                 userRegisterCachePenetrationBloomFilter.add(requestParam.getUsername());
                 return;
             }else {
