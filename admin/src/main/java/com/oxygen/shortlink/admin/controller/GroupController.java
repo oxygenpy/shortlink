@@ -26,8 +26,6 @@ public class GroupController {
 
     /**
      * 新增短连接分组
-     * @param requestParam
-     * @return
      */
     @PostMapping("/api/short-link/admin/v1/group")
     public Result<Void> save(@RequestBody ShortLinkGroupReqDTO requestParam) {
@@ -37,7 +35,6 @@ public class GroupController {
 
     /**
      * 查询短连接分组集合
-     * @return
      */
     @GetMapping("/api/short-link/admin/v1/group")
     public Result<List<ShortLinkGroupRespDTO>> listGroup() {
@@ -46,8 +43,6 @@ public class GroupController {
 
     /**
      * 修改短链接分组名称
-     * @param requestParam
-     * @return
      */
     @PutMapping("/api/short-link/admin/v1/group")
     public Result<Void> updateGroup(@RequestBody ShortLinkGroupUpdateReqDTO requestParam) {
@@ -57,8 +52,6 @@ public class GroupController {
 
     /**
      * 删除短连接分组
-     * @param gid 分组标识
-     * @return
      */
     @DeleteMapping("/api/short-link/admin/v1/group")
     public Result<Void> deleteGroup(@RequestParam String gid) {
@@ -68,8 +61,6 @@ public class GroupController {
 
     /**
      * 短链接分组排序
-     * @param requestParam
-     * @return
      */
     @PostMapping("/api/short-link/admin/v1/group/sort")
     public Result<Void> sortGroup(@RequestBody List<ShortLinkGroupSortReqDTO> requestParam) {

@@ -30,8 +30,6 @@ public class ShortLinkController {
 
     /**
      * 创建短链接
-     * @param requestParam
-     * @return
      */
     @PostMapping("/api/short-link/v1/create")
     public Result<ShortLinkCreateRespDTO> createShortLink(@RequestBody ShortLinkCreateReqDTO requestParam) {
@@ -40,8 +38,6 @@ public class ShortLinkController {
 
     /**
      * 修改短链接 --- 目前本接口只是通过gid和full_short_url定位短链接记录，然后修改originUrl和有效期以及描述，不能修改gid
-     * @param requestParam
-     * @return
      */
     @PostMapping("/api/short-link/v1/update")
     public Result<Void> updateShortLink(@RequestBody ShortLinkUpdateReqDTO requestParam) {
@@ -51,8 +47,6 @@ public class ShortLinkController {
 
     /**
      * 短链接分页查询
-     * @param requestParam
-     * @return
      */
     @GetMapping("/api/short-link/v1/page")
     private Result<IPage<ShortLinkPageRespDTO>> pageShortLink(ShortLinkPageReqDTO requestParam) {
@@ -62,8 +56,6 @@ public class ShortLinkController {
 
     /**
      * 查询分组下短链接数量
-     * @param requestParam
-     * @return
      */
     @GetMapping("/api/short-link/v1/count")
     private Result<List<ShortLinkGroupCountRespDTO>> listGroupShortLinkCount(@RequestParam("requestParam") List<String> requestParam) {
