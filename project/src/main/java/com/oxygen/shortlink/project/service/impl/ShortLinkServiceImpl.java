@@ -4,14 +4,18 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.text.StrBuilder;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.oxygen.shortlink.project.common.convention.exception.ClientException;
 import com.oxygen.shortlink.project.common.convention.exception.ServiceException;
+import com.oxygen.shortlink.project.common.enums.VailDateTypeEnum;
 import com.oxygen.shortlink.project.dao.entity.ShortLinkDO;
 import com.oxygen.shortlink.project.dao.mapper.ShortLinkMapper;
 import com.oxygen.shortlink.project.dto.req.ShortLinkCreateReqDTO;
 import com.oxygen.shortlink.project.dto.req.ShortLinkPageReqDTO;
+import com.oxygen.shortlink.project.dto.req.ShortLinkUpdateReqDTO;
 import com.oxygen.shortlink.project.dto.resp.ShortLinkCreateRespDTO;
 import com.oxygen.shortlink.project.dto.resp.ShortLinkGroupCountRespDTO;
 import com.oxygen.shortlink.project.dto.resp.ShortLinkPageRespDTO;
@@ -25,6 +29,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author LiJinLong
@@ -113,6 +118,37 @@ public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLink
                 .groupBy("gid");
         List<Map<String, Object>> maps = baseMapper.selectMaps(queryWrapper);
         return BeanUtil.copyToList(maps, ShortLinkGroupCountRespDTO.class);
+    }
+
+    /**
+     * 修改短链接
+     *
+     * @param requestParam
+     */
+    @Override
+    public void updateShortLink(ShortLinkUpdateReqDTO requestParam) {
+        LambdaQueryWrapper<ShortLinkDO> queryWrapper = Wrappers.lambdaQuery(ShortLinkDO.class)
+                .eq(ShortLinkDO::getGid, requestParam.getGid())
+                .eq(ShortLinkDO::getFullShortUrl, requestParam.getFullShortUrl())
+                .eq(ShortLinkDO::getDelFlag, 0)
+                .eq(ShortLinkDO::getEnableStatus, 0);
+        ShortLinkDO hasShortLink = baseMapper.selectOne(queryWrapper);
+        if (hasShortLink == null) {
+            throw new ClientException("短链接不存在");
+        }
+        ShortLinkDO shortLinkDO = ShortLinkDO.builder()
+                .originUrl(requestParam.getOriginUrl())
+                .gid(requestParam.getGid())
+                .describe(requestParam.getDescribe())
+                .validDateType(requestParam.getValidDateType())
+                .validDate(requestParam.getValidDate()).build();
+        LambdaUpdateWrapper<ShortLinkDO> updateWrapper = Wrappers.lambdaUpdate(ShortLinkDO.class)
+                .eq(ShortLinkDO::getGid, requestParam.getGid())
+                .eq(ShortLinkDO::getFullShortUrl, requestParam.getFullShortUrl())
+                .eq(ShortLinkDO::getDelFlag, 0)
+                .eq(ShortLinkDO::getEnableStatus, 0)
+                .set(Objects.equals(requestParam.getValidDateType(), VailDateTypeEnum.PERMANENT.getType()), ShortLinkDO::getValidDate, null);
+        baseMapper.update(shortLinkDO, updateWrapper);
     }
 
 

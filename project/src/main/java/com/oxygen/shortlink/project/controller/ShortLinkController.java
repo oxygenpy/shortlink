@@ -5,6 +5,7 @@ import com.oxygen.shortlink.project.common.convention.result.Result;
 import com.oxygen.shortlink.project.common.convention.result.Results;
 import com.oxygen.shortlink.project.dto.req.ShortLinkCreateReqDTO;
 import com.oxygen.shortlink.project.dto.req.ShortLinkPageReqDTO;
+import com.oxygen.shortlink.project.dto.req.ShortLinkUpdateReqDTO;
 import com.oxygen.shortlink.project.dto.resp.ShortLinkCreateRespDTO;
 import com.oxygen.shortlink.project.dto.resp.ShortLinkGroupCountRespDTO;
 import com.oxygen.shortlink.project.dto.resp.ShortLinkPageRespDTO;
@@ -35,6 +36,17 @@ public class ShortLinkController {
     @PostMapping("/api/short-link/v1/create")
     public Result<ShortLinkCreateRespDTO> createShortLink(@RequestBody ShortLinkCreateReqDTO requestParam) {
         return Results.success(shortLinkService.createShortLink(requestParam));
+    }
+
+    /**
+     * 修改短链接 --- 目前本接口只是通过gid和full_short_url定位短链接记录，然后修改originUrl和有效期以及描述，不能修改gid
+     * @param requestParam
+     * @return
+     */
+    @PostMapping("/api/short-link/v1/update")
+    public Result<Void> updateShortLink(@RequestBody ShortLinkUpdateReqDTO requestParam) {
+        shortLinkService.updateShortLink(requestParam);
+        return Results.success();
     }
 
     /**
