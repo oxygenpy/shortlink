@@ -5,6 +5,7 @@ import com.oxygen.shortlink.admin.common.convention.result.Result;
 import com.oxygen.shortlink.admin.remote.ShortLinKRemoteService;
 import com.oxygen.shortlink.admin.remote.dto.req.ShortLinkCreateReqDTO;
 import com.oxygen.shortlink.admin.remote.dto.req.ShortLinkPageReqDTO;
+import com.oxygen.shortlink.admin.remote.dto.req.ShortLinkUpdateReqDTO;
 import com.oxygen.shortlink.admin.remote.dto.resp.ShortLinkCreateRespDTO;
 import com.oxygen.shortlink.admin.remote.dto.resp.ShortLinkPageRespDTO;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,8 +29,6 @@ public class ShortLinkController {
 
     /**
      * 创建短链接
-     * @param requestParam
-     * @return
      */
     @PostMapping("/api/short-link/admin/v1/create")
     public Result<ShortLinkCreateRespDTO> createShortLink(@RequestBody ShortLinkCreateReqDTO requestParam) {
@@ -38,11 +37,18 @@ public class ShortLinkController {
 
     /**
      * 短链接分页查询
-     * @param requestParam
-     * @return
      */
     @GetMapping("/api/short-link/admin/v1/page")
     private Result<IPage<ShortLinkPageRespDTO>> pageShortLink(ShortLinkPageReqDTO requestParam) {
         return shortLinKRemoteService.pageShortLink(requestParam);
     }
+
+    /**
+     * 修改短链接的：原始链接、有效期类型、有效期、描述
+     */
+    @PostMapping("/api/short-link/admin/v1/update")
+    public Result<Void> updateShortLink(@RequestBody ShortLinkUpdateReqDTO requestParam) {
+        return shortLinKRemoteService.updateShortLink(requestParam);
+    }
+
 }
