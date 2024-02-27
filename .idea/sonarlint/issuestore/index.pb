@@ -596,3 +596,5 @@ Xadmin/src/main/java/com/oxygen/shortlink/admin/remote/dto/req/ShortLinkUpdateRe
 Rproject/src/main/java/com/oxygen/shortlink/project/dao/entity/ShortLinkGotoDO.java,6\e\6e823208186af7b2ee2c0e3c3020c677b593e903
 †
 Vproject/src/main/java/com/oxygen/shortlink/project/dao/mapper/ShortLinkGotoMapper.java,8\b\8b7dec33294ad9cd65540a924d1dd12afbce5f7d
+‰
+Yproject/src/main/java/com/oxygen/shortlink/project/common/constants/RedisKeyConstant.java,d\e\de4f349594524bad70bfb3b2646dea74f54e4dd6
