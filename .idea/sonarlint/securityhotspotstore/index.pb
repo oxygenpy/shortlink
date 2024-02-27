@@ -592,3 +592,7 @@ Uproject/src/main/java/com/oxygen/shortlink/project/dto/req/ShortLinkUpdateReqDT
 Uproject/src/main/java/com/oxygen/shortlink/project/common/enums/VailDateTypeEnum.java,f\1\f16b596525dee58b1e89dc402dcd4bcfcfc9352c
 ˆ
 Xadmin/src/main/java/com/oxygen/shortlink/admin/remote/dto/req/ShortLinkUpdateReqDTO.java,5\6\561fed4ecdff97e21c9813d1753c329e40e82bb9
+‚
+Rproject/src/main/java/com/oxygen/shortlink/project/dao/entity/ShortLinkGotoDO.java,6\e\6e823208186af7b2ee2c0e3c3020c677b593e903
+†
+Vproject/src/main/java/com/oxygen/shortlink/project/dao/mapper/ShortLinkGotoMapper.java,8\b\8b7dec33294ad9cd65540a924d1dd12afbce5f7d
