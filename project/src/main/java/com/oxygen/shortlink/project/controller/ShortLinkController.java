@@ -10,6 +10,8 @@ import com.oxygen.shortlink.project.dto.resp.ShortLinkCreateRespDTO;
 import com.oxygen.shortlink.project.dto.resp.ShortLinkGroupCountRespDTO;
 import com.oxygen.shortlink.project.dto.resp.ShortLinkPageRespDTO;
 import com.oxygen.shortlink.project.service.ShortLinkService;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +29,25 @@ import java.util.List;
 public class ShortLinkController {
 
     private final ShortLinkService shortLinkService;
+
+
+    /**
+     * 短链接跳转原始链接
+     * {
+     *     "domain": "nurl.ink",
+     *     "originUrl": "http://uprhecs.hm/crbetg",
+     *     "gid": "1",
+     *     "createdType": 0,
+     *     "validDateType": 0,
+     *     "validDate": "2024-02-27 21:12:23",
+     *     "describe": "elit eiusmod"
+     * }
+     * 请求示例：http://nurl.ink:8001/YfylZ
+     */
+    @GetMapping("/{short-uri}")
+    public void restoreUrl(@PathVariable("short-uri") String shortUri, ServletRequest request, ServletResponse response) {
+        shortLinkService.restoreUrl(shortUri, request, response);
+    }
 
     /**
      * 创建短链接

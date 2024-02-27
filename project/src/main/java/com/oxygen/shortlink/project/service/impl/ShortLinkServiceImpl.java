@@ -12,6 +12,8 @@ import com.oxygen.shortlink.project.common.convention.exception.ClientException;
 import com.oxygen.shortlink.project.common.convention.exception.ServiceException;
 import com.oxygen.shortlink.project.common.enums.VailDateTypeEnum;
 import com.oxygen.shortlink.project.dao.entity.ShortLinkDO;
+import com.oxygen.shortlink.project.dao.entity.ShortLinkGotoDO;
+import com.oxygen.shortlink.project.dao.mapper.ShortLinkGotoMapper;
 import com.oxygen.shortlink.project.dao.mapper.ShortLinkMapper;
 import com.oxygen.shortlink.project.dto.req.ShortLinkCreateReqDTO;
 import com.oxygen.shortlink.project.dto.req.ShortLinkPageReqDTO;
@@ -21,7 +23,11 @@ import com.oxygen.shortlink.project.dto.resp.ShortLinkGroupCountRespDTO;
 import com.oxygen.shortlink.project.dto.resp.ShortLinkPageRespDTO;
 import com.oxygen.shortlink.project.service.ShortLinkService;
 import com.oxygen.shortlink.project.toolkit.HashUtil;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RBloomFilter;
 import org.springframework.dao.DuplicateKeyException;
@@ -31,6 +37,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * @author LiJinLong
@@ -45,6 +52,8 @@ public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLink
 
     private final RBloomFilter<String> shortUriCreateCachePenetrationBloomFilter;
 
+    private final ShortLinkGotoMapper shortLinkGotoMapper;
+
     /**
      * 创建短链接
      *
@@ -55,27 +64,35 @@ public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLink
     public ShortLinkCreateRespDTO createShortLink(ShortLinkCreateReqDTO requestParam) {
         String suffix = generatorSuffix(requestParam);
 
-        String fullShortUrl = StrBuilder.create(requestParam.getDomain())
+        // String fullShortUrl = StrBuilder.create(requestParam.getDomain())
+        String fullShortUrl = StrBuilder.create("nurl.ink:8001")
                 .append("/")
                 .append(suffix)
                 .toString();
         ShortLinkDO shortLink = ShortLinkDO.builder()
-                .domain(requestParam.getDomain())
+                // .domain(requestParam.getDomain())
+                .domain("nurl.ink:8001")
                 .originUrl(requestParam.getOriginUrl())
                 .gid(requestParam.getGid())
                 .createdType(requestParam.getCreatedType())
                 .validDateType(requestParam.getValidDateType())
                 .validDate(requestParam.getValidDate())
                 .describe(requestParam.getDescribe())
+                .enableStatus(0)
                 // 设置hash码与短链接
                 .shortUri(suffix)
                 .fullShortUrl(fullShortUrl)
                 .build();
         shortUriCreateCachePenetrationBloomFilter.add(fullShortUrl);
 
+        ShortLinkGotoDO linkGotoDO = ShortLinkGotoDO.builder()
+                .gid(requestParam.getGid())
+                .fullShortUrl(fullShortUrl)
+                .build();
         // 出现唯一索引冲突，可能是多并发场景生成多个重复短链接，只有一个能插入成功，其他的都不成功，或者由于进程挂掉等原因导致布隆过滤器没有数据库有，也会导致后续索引冲突
         try {
             baseMapper.insert(shortLink);
+            shortLinkGotoMapper.insert(linkGotoDO);
         } catch (DuplicateKeyException e) {
             log.info("短链接重复入库：{}", fullShortUrl);
             throw new ServiceException("短链接生成重复");
@@ -83,7 +100,7 @@ public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLink
         return ShortLinkCreateRespDTO.builder()
                 .gid(shortLink.getGid())
                 .originUrl(shortLink.getOriginUrl())
-                .fullShortUrl(shortLink.getFullShortUrl())
+                .fullShortUrl("http://" + shortLink.getFullShortUrl())
                 .build();
     }
 
@@ -153,6 +170,40 @@ public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLink
         baseMapper.update(shortLinkDO, updateWrapper);
     }
 
+    /**
+     * 短链接跳转原始链接
+     *
+     * @param shortUri 短链接后缀
+     * @param request  HTTP 请求
+     * @param response HTTP 响应
+     */
+    @SneakyThrows
+    @Override
+    public void restoreUrl(String shortUri, ServletRequest request, ServletResponse response) {
+        String serverName = request.getServerName();
+        String serverPort = Optional.of(request.getServerPort())
+                .filter(each -> !Objects.equals(each, 80))
+                .map(String::valueOf)
+                .map(each -> ":" + each)
+                .orElse("");
+        String fullShortUrl = serverName + serverPort + "/" + shortUri;
+        LambdaQueryWrapper<ShortLinkGotoDO> gotoQueryWrapper = Wrappers.lambdaQuery(ShortLinkGotoDO.class).eq(ShortLinkGotoDO::getFullShortUrl, fullShortUrl);
+        ShortLinkGotoDO shortLinkGotoDO = shortLinkGotoMapper.selectOne(gotoQueryWrapper);
+        if (shortLinkGotoDO == null) {
+            // 严格来说此处需要风控
+            return;
+        }
+        LambdaQueryWrapper<ShortLinkDO> queryWrapper = Wrappers.lambdaQuery(ShortLinkDO.class)
+                .eq(ShortLinkDO::getGid, shortLinkGotoDO.getGid())
+                .eq(ShortLinkDO::getFullShortUrl, fullShortUrl)
+                .eq(ShortLinkDO::getDelFlag, 0)
+                .eq(ShortLinkDO::getEnableStatus, 0);
+        ShortLinkDO shortLinkDO = baseMapper.selectOne(queryWrapper);
+        if (shortLinkDO != null) {
+            ((HttpServletResponse) response).sendRedirect(shortLinkDO.getOriginUrl());
+        }
+    }
+
 
     String generatorSuffix(ShortLinkCreateReqDTO requestParam) {
         int customGenerateNum = 0;
@@ -164,7 +215,7 @@ public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLink
             // 每次重试给原始链接拼接当前毫秒数避免重复生成，字符串不变每次hash自然一样
             String originUrl = requestParam.getOriginUrl() + System.currentTimeMillis();
             shortUrl = HashUtil.hashToBase62(originUrl);
-            if (!shortUriCreateCachePenetrationBloomFilter.contains(requestParam.getDomain() + "/" + shortUrl)) {
+            if (!shortUriCreateCachePenetrationBloomFilter.contains("nurl.ink:8001" + "/" + shortUrl)) {
                 break;
             }
             customGenerateNum++;
