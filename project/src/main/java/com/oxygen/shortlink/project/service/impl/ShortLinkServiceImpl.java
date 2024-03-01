@@ -25,6 +25,7 @@ import com.oxygen.shortlink.project.dto.resp.ShortLinkGroupCountRespDTO;
 import com.oxygen.shortlink.project.dto.resp.ShortLinkPageRespDTO;
 import com.oxygen.shortlink.project.service.ShortLinkService;
 import com.oxygen.shortlink.project.toolkit.HashUtil;
+import com.oxygen.shortlink.project.toolkit.LinkUtil;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletResponse;
@@ -39,10 +40,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -94,6 +92,15 @@ public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLink
                 .shortUri(suffix)
                 .fullShortUrl(fullShortUrl)
                 .build();
+
+        // 缓存预热 过期时间为请求中的有效期的毫秒值，未传有效期的为永久，设置1个月的过期时间
+        stringRedisTemplate.opsForValue()
+                .set(String.format(RedisKeyConstant.GOTO_SHORT_LINK_KEY, fullShortUrl),
+                        requestParam.getOriginUrl(),
+                        LinkUtil.getLinkCacheValidTime(requestParam.getValidDate()),
+                        TimeUnit.MILLISECONDS);
+
+        // 加入布隆过滤器
         shortUriCreateCachePenetrationBloomFilter.add(fullShortUrl);
 
         ShortLinkGotoDO linkGotoDO = ShortLinkGotoDO.builder()
@@ -213,8 +220,8 @@ public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLink
         }
 
         // 判断key是否缓存了无效对象 "-"
-        String nullValue = stringRedisTemplate.opsForValue().get(String.format(RedisKeyConstant.GOTO_IS_NULL_SHORT_LINK_KEY, fullShortUrl));
-        if (StrUtil.isNotBlank(nullValue)) {
+        String invalidObject = stringRedisTemplate.opsForValue().get(String.format(RedisKeyConstant.GOTO_IS_NULL_SHORT_LINK_KEY, fullShortUrl));
+        if (StrUtil.isNotBlank(invalidObject)) {
             return;
         }
 
@@ -240,7 +247,15 @@ public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLink
                     .eq(ShortLinkDO::getEnableStatus, 0);
             ShortLinkDO shortLinkDO = baseMapper.selectOne(queryWrapper);
             if (shortLinkDO != null) {
-                stringRedisTemplate.opsForValue().set(String.format(RedisKeyConstant.GOTO_SHORT_LINK_KEY, fullShortUrl), shortLinkDO.getOriginUrl());
+                if(shortLinkDO.getValidDate() != null && shortLinkDO.getValidDate().before(new Date())) {
+                    // 数据库中过期的短链接要在缓存中设置无效对象
+                    stringRedisTemplate.opsForValue().set(String.format(RedisKeyConstant.GOTO_IS_NULL_SHORT_LINK_KEY, fullShortUrl), "-", 30, TimeUnit.MINUTES);
+                    return;
+                }
+                stringRedisTemplate.opsForValue().set(
+                        String.format(RedisKeyConstant.GOTO_SHORT_LINK_KEY, fullShortUrl),
+                        shortLinkDO.getOriginUrl(),
+                        LinkUtil.getLinkCacheValidTime(shortLinkDO.getValidDate()), TimeUnit.MILLISECONDS);
                 ((HttpServletResponse) response).sendRedirect(shortLinkDO.getOriginUrl());
             }
         }  finally {

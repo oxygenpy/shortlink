@@ -598,3 +598,7 @@ Rproject/src/main/java/com/oxygen/shortlink/project/dao/entity/ShortLinkGotoDO.j
 Vproject/src/main/java/com/oxygen/shortlink/project/dao/mapper/ShortLinkGotoMapper.java,8\b\8b7dec33294ad9cd65540a924d1dd12afbce5f7d
 ‰
 Yproject/src/main/java/com/oxygen/shortlink/project/common/constants/RedisKeyConstant.java,d\e\de4f349594524bad70bfb3b2646dea74f54e4dd6
+Š
+Zproject/src/main/java/com/oxygen/shortlink/project/common/constants/ShortLinkConstant.java,8\d\8d008ae4b0e8a2192ccf31c03d77db8477d40bbb
+x
+Hproject/src/main/java/com/oxygen/shortlink/project/toolkit/LinkUtil.java,9\9\998316ff1141f5d2be0ac1fce45f75145e985814
