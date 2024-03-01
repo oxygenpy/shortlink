@@ -602,3 +602,5 @@ Yproject/src/main/java/com/oxygen/shortlink/project/common/constants/RedisKeyCon
 Zproject/src/main/java/com/oxygen/shortlink/project/common/constants/ShortLinkConstant.java,8\d\8d008ae4b0e8a2192ccf31c03d77db8477d40bbb
 x
 Hproject/src/main/java/com/oxygen/shortlink/project/toolkit/LinkUtil.java,9\9\998316ff1141f5d2be0ac1fce45f75145e985814
+Ž
+^project/src/main/java/com/oxygen/shortlink/project/controller/ShortLinkNotfoundController.java,a\1\a1e02a390d3f80a908e997539c566637ffa96f95
