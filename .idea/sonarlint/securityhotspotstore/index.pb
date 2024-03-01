@@ -604,3 +604,11 @@ x
 Hproject/src/main/java/com/oxygen/shortlink/project/toolkit/LinkUtil.java,9\9\998316ff1141f5d2be0ac1fce45f75145e985814
 é
 ^project/src/main/java/com/oxygen/shortlink/project/controller/ShortLinkNotfoundController.java,a\1\a1e02a390d3f80a908e997539c566637ffa96f95
+Ö
+Uproject/src/main/java/com/oxygen/shortlink/project/controller/UrlTitleController.java,c\f\cff5a0613766b5a0368c1b29f3ca9b8f5204a48b
+
+Oproject/src/main/java/com/oxygen/shortlink/project/service/UrlTitleService.java,7\3\739d57a0f52c70dde0d090cf31cc20fb03c67724
+à
+Xproject/src/main/java/com/oxygen/shortlink/project/service/impl/UrlTitleServiceImpl.java,5\e\5e6248423f2c103f2159260d2257e008abbefa47
+Å
+Qadmin/src/main/java/com/oxygen/shortlink/admin/controller/UrlTitleController.java,5\3\5353942b8cee85e980d7d4ad0644176f6d60364f

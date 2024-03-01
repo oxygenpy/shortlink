@@ -12,7 +12,6 @@ import com.oxygen.shortlink.admin.remote.dto.req.ShortLinkUpdateReqDTO;
 import com.oxygen.shortlink.admin.remote.dto.resp.ShortLinkCreateRespDTO;
 import com.oxygen.shortlink.admin.remote.dto.resp.ShortLinkGroupCountRespDTO;
 import com.oxygen.shortlink.admin.remote.dto.resp.ShortLinkPageRespDTO;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.HashMap;
 import java.util.List;
@@ -68,10 +67,19 @@ public interface ShortLinKRemoteService {
     /**
      * 修改短链接的：原始链接、有效期类型、有效期、描述
      */
-    default Result<Void> updateShortLink(@RequestBody ShortLinkUpdateReqDTO requestParam) {
+    default Result<Void> updateShortLink(ShortLinkUpdateReqDTO requestParam) {
         String resultStr = HttpUtil.post("http://localhost:8001/api/short-link/v1/update", JSON.toJSONString(requestParam));
         return JSON.parseObject(resultStr, new TypeReference<>() {
         });
     }
 
+
+    /**
+     * 通过URL获取网站标题
+     */
+    default Result<String> getTitleByUrl(String url) {
+        String resultStr = HttpUtil.get("http://127.0.0.1:8001/api/short-link/v1/title?url=" + url);
+        return JSON.parseObject(resultStr, new TypeReference<>() {
+        });
+    }
 }
