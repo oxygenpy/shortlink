@@ -43,6 +43,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author LiJinLong
@@ -198,10 +199,22 @@ public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLink
                 .orElse("");
         String fullShortUrl = serverName + serverPort + "/" + shortUri;
 
-        // 使用双检加锁的策略构造双层判定锁
+        // 使用双检加锁的策略构造双层判定锁  双层判定锁只能保障缓存击穿，对于缓存穿透我们会加入布隆过滤器
         String originalLink = stringRedisTemplate.opsForValue().get(String.format(RedisKeyConstant.GOTO_SHORT_LINK_KEY, fullShortUrl));
         if (StrUtil.isNotBlank(originalLink)) {
             ((HttpServletResponse) response).sendRedirect(originalLink);
+            return;
+        }
+
+        // 判断是否存在于布隆过滤器  在创建短链接之后就把短链接加入了布隆过滤器
+        boolean contains = shortUriCreateCachePenetrationBloomFilter.contains(fullShortUrl);
+        if (!contains) {
+            return;
+        }
+
+        // 判断key是否缓存了无效对象 "-"
+        String nullValue = stringRedisTemplate.opsForValue().get(String.format(RedisKeyConstant.GOTO_IS_NULL_SHORT_LINK_KEY, fullShortUrl));
+        if (StrUtil.isNotBlank(nullValue)) {
             return;
         }
 
@@ -216,7 +229,8 @@ public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLink
             LambdaQueryWrapper<ShortLinkGotoDO> gotoQueryWrapper = Wrappers.lambdaQuery(ShortLinkGotoDO.class).eq(ShortLinkGotoDO::getFullShortUrl, fullShortUrl);
             ShortLinkGotoDO shortLinkGotoDO = shortLinkGotoMapper.selectOne(gotoQueryWrapper);
             if (shortLinkGotoDO == null) {
-                // 严格来说此处需要风控
+                // 应对缓存击穿，缓存空对象
+                stringRedisTemplate.opsForValue().set(String.format(RedisKeyConstant.GOTO_IS_NULL_SHORT_LINK_KEY, fullShortUrl), "-", 30, TimeUnit.MINUTES);
                 return;
             }
             LambdaQueryWrapper<ShortLinkDO> queryWrapper = Wrappers.lambdaQuery(ShortLinkDO.class)
