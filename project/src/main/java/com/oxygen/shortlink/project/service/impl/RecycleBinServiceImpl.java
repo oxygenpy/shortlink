@@ -1,12 +1,17 @@
 package com.oxygen.shortlink.project.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.oxygen.shortlink.project.common.constants.RedisKeyConstant;
 import com.oxygen.shortlink.project.dao.entity.ShortLinkDO;
 import com.oxygen.shortlink.project.dao.mapper.ShortLinkMapper;
 import com.oxygen.shortlink.project.dto.req.RecycleBinSaveReqDTO;
+import com.oxygen.shortlink.project.dto.req.ShortLinkPageReqDTO;
+import com.oxygen.shortlink.project.dto.resp.ShortLinkPageRespDTO;
 import com.oxygen.shortlink.project.service.RecycleBinService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -39,5 +44,23 @@ public class RecycleBinServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLin
         baseMapper.update(shortLinkDO, updateWrapper);
         // 删除缓存中的短链接
         stringRedisTemplate.delete(String.format(RedisKeyConstant.GOTO_SHORT_LINK_KEY, requestParam.getFullShortUrl()));
+    }
+
+    /**
+     * 回收站分页查询
+     *
+     * @param requestParam
+     * @return
+     */
+    @Override
+    public IPage<ShortLinkPageRespDTO> pageShortLink(ShortLinkPageReqDTO requestParam) {
+        // 放入回收站的短链接会将enableStatus设置为1
+        LambdaQueryWrapper<ShortLinkDO> queryWrapper = Wrappers.lambdaQuery(ShortLinkDO.class)
+                .eq(ShortLinkDO::getGid, requestParam.getGid())
+                .eq(ShortLinkDO::getEnableStatus, 1)
+                .eq(ShortLinkDO::getDelFlag, 0)
+                .orderByDesc(ShortLinkDO::getCreateTime);
+        IPage<ShortLinkDO> resultPage = baseMapper.selectPage(requestParam, queryWrapper);
+        return resultPage.convert(each -> BeanUtil.toBean(each, ShortLinkPageRespDTO.class));
     }
 }

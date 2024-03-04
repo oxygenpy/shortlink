@@ -1,8 +1,11 @@
 package com.oxygen.shortlink.project.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.oxygen.shortlink.project.dao.entity.ShortLinkDO;
 import com.oxygen.shortlink.project.dto.req.RecycleBinSaveReqDTO;
+import com.oxygen.shortlink.project.dto.req.ShortLinkPageReqDTO;
+import com.oxygen.shortlink.project.dto.resp.ShortLinkPageRespDTO;
 
 /**
  * @author LiJinLong
@@ -17,4 +20,11 @@ public interface RecycleBinService extends IService<ShortLinkDO> {
      * @param requestParam
      */
     void saveRecycleBin(RecycleBinSaveReqDTO requestParam);
+
+    /**
+     * 回收站分页查询
+     * @param requestParam
+     * @return
+     */
+    IPage<ShortLinkPageRespDTO> pageShortLink(ShortLinkPageReqDTO requestParam);
 }
