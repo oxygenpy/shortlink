@@ -6,10 +6,7 @@ import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.TypeReference;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.oxygen.shortlink.admin.common.convention.result.Result;
-import com.oxygen.shortlink.admin.remote.dto.req.RecycleBinSaveReqDTO;
-import com.oxygen.shortlink.admin.remote.dto.req.ShortLinkCreateReqDTO;
-import com.oxygen.shortlink.admin.remote.dto.req.ShortLinkPageReqDTO;
-import com.oxygen.shortlink.admin.remote.dto.req.ShortLinkUpdateReqDTO;
+import com.oxygen.shortlink.admin.remote.dto.req.*;
 import com.oxygen.shortlink.admin.remote.dto.resp.ShortLinkCreateRespDTO;
 import com.oxygen.shortlink.admin.remote.dto.resp.ShortLinkGroupCountRespDTO;
 import com.oxygen.shortlink.admin.remote.dto.resp.ShortLinkPageRespDTO;
@@ -23,7 +20,7 @@ import java.util.List;
  * @create 2024-02-22 14:57
  * @date 1.0
  */
-public interface ShortLinKRemoteService {
+public interface ShortLinkRemoteService {
 
     /**
      * 创建短链接
@@ -97,9 +94,9 @@ public interface ShortLinKRemoteService {
      * @param requestParam
      * @return
      */
-    default Result<IPage<ShortLinkPageRespDTO>> pageRecycleBinShortLink(ShortLinkPageReqDTO requestParam) {
+    default Result<IPage<ShortLinkPageRespDTO>> pageRecycleBinShortLink(ShortLinkRecycleBinPageReqDTO requestParam) {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("gid", requestParam.getGid());
+        map.put("gidList", requestParam.getGidList());
         map.put("current", requestParam.getCurrent());
         map.put("size", requestParam.getSize());
         String resultPageStr = HttpUtil.get("http://localhost:8001/api/short-link/v1/recycle/page", map);

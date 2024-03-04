@@ -2,7 +2,7 @@ package com.oxygen.shortlink.admin.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.oxygen.shortlink.admin.common.convention.result.Result;
-import com.oxygen.shortlink.admin.remote.ShortLinKRemoteService;
+import com.oxygen.shortlink.admin.remote.ShortLinkRemoteService;
 import com.oxygen.shortlink.admin.remote.dto.req.ShortLinkCreateReqDTO;
 import com.oxygen.shortlink.admin.remote.dto.req.ShortLinkPageReqDTO;
 import com.oxygen.shortlink.admin.remote.dto.req.ShortLinkUpdateReqDTO;
@@ -25,14 +25,14 @@ public class ShortLinkController {
     /**
      * 短链接中心服务调用方法
      */
-    ShortLinKRemoteService shortLinKRemoteService = new ShortLinKRemoteService() {};
+    ShortLinkRemoteService shortLinkRemoteService = new ShortLinkRemoteService() {};
 
     /**
      * 创建短链接
      */
     @PostMapping("/api/short-link/admin/v1/create")
     public Result<ShortLinkCreateRespDTO> createShortLink(@RequestBody ShortLinkCreateReqDTO requestParam) {
-        return shortLinKRemoteService.createShortLink(requestParam);
+        return shortLinkRemoteService.createShortLink(requestParam);
     }
 
     /**
@@ -40,7 +40,7 @@ public class ShortLinkController {
      */
     @GetMapping("/api/short-link/admin/v1/page")
     private Result<IPage<ShortLinkPageRespDTO>> pageShortLink(ShortLinkPageReqDTO requestParam) {
-        return shortLinKRemoteService.pageShortLink(requestParam);
+        return shortLinkRemoteService.pageShortLink(requestParam);
     }
 
     /**
@@ -48,7 +48,7 @@ public class ShortLinkController {
      */
     @PostMapping("/api/short-link/admin/v1/update")
     public Result<Void> updateShortLink(@RequestBody ShortLinkUpdateReqDTO requestParam) {
-        return shortLinKRemoteService.updateShortLink(requestParam);
+        return shortLinkRemoteService.updateShortLink(requestParam);
     }
 
 }

@@ -7,7 +7,7 @@ import com.oxygen.shortlink.admin.dto.req.ShortLinkGroupSortReqDTO;
 import com.oxygen.shortlink.admin.dto.req.ShortLinkGroupUpdateReqDTO;
 import com.oxygen.shortlink.admin.dto.resp.ShortLinkGroupRespDTO;
 import com.oxygen.shortlink.admin.service.GroupService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,7 +19,7 @@ import java.util.List;
  * @date 1.0
  */
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class GroupController {
 
     private final GroupService groupService;

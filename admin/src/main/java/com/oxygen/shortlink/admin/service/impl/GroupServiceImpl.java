@@ -12,7 +12,7 @@ import com.oxygen.shortlink.admin.dao.mapper.GroupMapper;
 import com.oxygen.shortlink.admin.dto.req.ShortLinkGroupSortReqDTO;
 import com.oxygen.shortlink.admin.dto.req.ShortLinkGroupUpdateReqDTO;
 import com.oxygen.shortlink.admin.dto.resp.ShortLinkGroupRespDTO;
-import com.oxygen.shortlink.admin.remote.ShortLinKRemoteService;
+import com.oxygen.shortlink.admin.remote.ShortLinkRemoteService;
 import com.oxygen.shortlink.admin.remote.dto.resp.ShortLinkGroupCountRespDTO;
 import com.oxygen.shortlink.admin.service.GroupService;
 import com.oxygen.shortlink.admin.toolkit.RandomGenerator;
@@ -35,7 +35,7 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implemen
     /**
      * 短链接中心服务调用方法
      */
-    ShortLinKRemoteService shortLinKRemoteService = new ShortLinKRemoteService() {};
+    ShortLinkRemoteService shortLinKRemoteService = new ShortLinkRemoteService() {};
 
     /**
      * 新增短连接分组

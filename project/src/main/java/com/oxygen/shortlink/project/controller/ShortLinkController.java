@@ -12,7 +12,7 @@ import com.oxygen.shortlink.project.dto.resp.ShortLinkPageRespDTO;
 import com.oxygen.shortlink.project.service.ShortLinkService;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ShortLinkController {
 
     private final ShortLinkService shortLinkService;
