@@ -3,6 +3,7 @@ package com.oxygen.shortlink.project.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.oxygen.shortlink.project.dao.entity.ShortLinkDO;
+import com.oxygen.shortlink.project.dto.req.RecycleBinRecoverReqDTO;
 import com.oxygen.shortlink.project.dto.req.RecycleBinSaveReqDTO;
 import com.oxygen.shortlink.project.dto.req.ShortLinkRecycleBinPageReqDTO;
 import com.oxygen.shortlink.project.dto.resp.ShortLinkPageRespDTO;
@@ -27,4 +28,10 @@ public interface RecycleBinService extends IService<ShortLinkDO> {
      * @return
      */
     IPage<ShortLinkPageRespDTO> pageShortLink(ShortLinkRecycleBinPageReqDTO requestParam);
+
+    /**
+     * 回收站恢复短链接
+     * @param requestParam
+     */
+    void recoverRecycleBin(RecycleBinRecoverReqDTO requestParam);
 }
