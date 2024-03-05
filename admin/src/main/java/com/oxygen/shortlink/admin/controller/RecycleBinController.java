@@ -5,15 +5,13 @@ import com.oxygen.shortlink.admin.common.convention.result.Result;
 import com.oxygen.shortlink.admin.common.convention.result.Results;
 import com.oxygen.shortlink.admin.remote.ShortLinkRemoteService;
 import com.oxygen.shortlink.admin.remote.dto.req.RecycleBinRecoverReqDTO;
+import com.oxygen.shortlink.admin.remote.dto.req.RecycleBinRemoveReqDTO;
 import com.oxygen.shortlink.admin.remote.dto.req.RecycleBinSaveReqDTO;
 import com.oxygen.shortlink.admin.remote.dto.req.ShortLinkRecycleBinPageReqDTO;
 import com.oxygen.shortlink.admin.remote.dto.resp.ShortLinkPageRespDTO;
 import com.oxygen.shortlink.admin.service.RecycleBinService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author LiJinLong
@@ -57,5 +55,15 @@ public class RecycleBinController {
         shortLinkRemoteService.recoverRecycleBin(requestParam);
         return Results.success();
     }
+
+    /**
+     * 回收站恢复短链接
+     */
+    @DeleteMapping("/api/short-link/admin/v1/recycle-bin/remove")
+    public Result<Void> removeRecycleBin(@RequestBody RecycleBinRemoveReqDTO requestParam) {
+        shortLinkRemoteService.removeRecycleBin(requestParam);
+        return Results.success();
+    }
+
 
 }

@@ -10,6 +10,7 @@ import com.oxygen.shortlink.project.common.constants.RedisKeyConstant;
 import com.oxygen.shortlink.project.dao.entity.ShortLinkDO;
 import com.oxygen.shortlink.project.dao.mapper.ShortLinkMapper;
 import com.oxygen.shortlink.project.dto.req.RecycleBinRecoverReqDTO;
+import com.oxygen.shortlink.project.dto.req.RecycleBinRemoveReqDTO;
 import com.oxygen.shortlink.project.dto.req.RecycleBinSaveReqDTO;
 import com.oxygen.shortlink.project.dto.req.ShortLinkRecycleBinPageReqDTO;
 import com.oxygen.shortlink.project.dto.resp.ShortLinkPageRespDTO;
@@ -81,5 +82,22 @@ public class RecycleBinServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLin
         baseMapper.update(shortLinkDO, updateWrapper);
         // 从缓存中删除缓存的无效对象
         stringRedisTemplate.delete(String.format(RedisKeyConstant.GOTO_IS_NULL_SHORT_LINK_KEY, requestParam.getFullShortUrl()));
+    }
+
+    /**
+     * 回收站删除短链接
+     *
+     * @param requestParam
+     */
+    @Override
+    public void removeRecycleBin(RecycleBinRemoveReqDTO requestParam) {
+        LambdaUpdateWrapper<ShortLinkDO> updateWrapper = Wrappers.lambdaUpdate(ShortLinkDO.class)
+                .eq(ShortLinkDO::getGid, requestParam.getGid())
+                .eq(ShortLinkDO::getFullShortUrl, requestParam.getFullShortUrl())
+                .eq(ShortLinkDO::getEnableStatus, 1)
+                .eq(ShortLinkDO::getDelFlag, 0);
+        ShortLinkDO shortLinkDO = ShortLinkDO.builder().build();
+        shortLinkDO.setDelFlag(1);
+        baseMapper.update(shortLinkDO, updateWrapper);
     }
 }
