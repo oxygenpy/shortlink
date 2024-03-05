@@ -55,7 +55,7 @@ public class RecycleBinController {
     /**
      * 回收站恢复短链接
      */
-    @DeleteMapping("/api/short-link/v1/recycle-bin/remove")
+    @PostMapping("/api/short-link/v1/recycle-bin/remove")
     public Result<Void> removeRecycleBin(@RequestBody RecycleBinRemoveReqDTO requestParam) {
         recycleBinService.removeRecycleBin(requestParam);
         return Results.success();
