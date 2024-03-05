@@ -642,3 +642,7 @@ Zadmin/src/main/java/com/oxygen/shortlink/admin/remote/dto/req/RecycleBinRecover
 Vproject/src/main/java/com/oxygen/shortlink/project/dto/req/RecycleBinRemoveReqDTO.java,4\0\40e830d838d7e2a851c82b71a4553401c4f00e14
 ‰
 Yadmin/src/main/java/com/oxygen/shortlink/admin/remote/dto/req/RecycleBinRemoveReqDTO.java,5\7\57a3cf64d73f086c46dad461fff3ed2fb0fc19ac
+„
+Tproject/src/main/java/com/oxygen/shortlink/project/dao/entity/LinkAccessStatsDO.java,2\0\20baa7b91807e6f88316b83862dcd9c70e971c48
+ˆ
+Xproject/src/main/java/com/oxygen/shortlink/project/dao/mapper/LinkAccessStatsMapper.java,7\6\76213cbd04fb085206b4002c7fcc2bf142cd6e8d
