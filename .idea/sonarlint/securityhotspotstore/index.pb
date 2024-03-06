@@ -654,3 +654,7 @@ Xproject/src/main/java/com/oxygen/shortlink/project/dao/mapper/LinkLocaleStatsMa
 Pproject/src/main/java/com/oxygen/shortlink/project/dao/entity/LinkOsStatsDO.java,7\3\738d5775dd68409b1e04f920bb7cb01fd50bc30b
 „
 Tproject/src/main/java/com/oxygen/shortlink/project/dao/mapper/LinkOsStatsMapper.java,f\6\f6fafd055ee004b61b64902279078ab41c503514
+…
+Uproject/src/main/java/com/oxygen/shortlink/project/dao/entity/LinkBrowserStatsDO.java,5\6\56ba6be8443cd1f8b9ec18aa2ec0cd443d8698f0
+‰
+Yproject/src/main/java/com/oxygen/shortlink/project/dao/mapper/LinkBrowserStatsMapper.java,3\a\3a2c24590f574255506f6519609e411f0434e141
