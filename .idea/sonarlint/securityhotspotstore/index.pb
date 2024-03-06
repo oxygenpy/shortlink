@@ -662,3 +662,9 @@ Yproject/src/main/java/com/oxygen/shortlink/project/dao/mapper/LinkBrowserStatsM
 Sproject/src/main/java/com/oxygen/shortlink/project/dao/entity/LinkAccessLogsDO.java,5\7\5788e744223eb5df6612db5e745795edf59dfb4a
 ‡
 Wproject/src/main/java/com/oxygen/shortlink/project/dao/mapper/LinkAccessLogsMapper.java,d\d\dde6182e2b60cdbaba2a1da9bb203bcd05bae2c0
+„
+Tproject/src/main/java/com/oxygen/shortlink/project/dao/entity/LinkDeviceStatsDO.java,f\9\f9756c621a0d33c94ae693f187c255532b990bb9
+…
+Uproject/src/main/java/com/oxygen/shortlink/project/dao/entity/LinkNetworkStatsDO.java,6\5\650f1569b9c3ac53611ff3eecf8d32e84f84770e
+ˆ
+Xproject/src/main/java/com/oxygen/shortlink/project/dao/mapper/LinkDeviceStatsMapper.java,6\4\647316dcdf681f30ef01e6b4f05720c6b8816966
