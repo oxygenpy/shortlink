@@ -7,6 +7,9 @@ import cn.hutool.core.lang.UUID;
 import cn.hutool.core.text.StrBuilder;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.http.HttpUtil;
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
@@ -14,13 +17,16 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.oxygen.shortlink.project.common.constants.RedisKeyConstant;
+import com.oxygen.shortlink.project.common.constants.ShortLinkConstant;
 import com.oxygen.shortlink.project.common.convention.exception.ClientException;
 import com.oxygen.shortlink.project.common.convention.exception.ServiceException;
 import com.oxygen.shortlink.project.common.enums.VailDateTypeEnum;
 import com.oxygen.shortlink.project.dao.entity.LinkAccessStatsDO;
+import com.oxygen.shortlink.project.dao.entity.LinkLocaleStatsDO;
 import com.oxygen.shortlink.project.dao.entity.ShortLinkDO;
 import com.oxygen.shortlink.project.dao.entity.ShortLinkGotoDO;
 import com.oxygen.shortlink.project.dao.mapper.LinkAccessStatsMapper;
+import com.oxygen.shortlink.project.dao.mapper.LinkLocaleStatsMapper;
 import com.oxygen.shortlink.project.dao.mapper.ShortLinkGotoMapper;
 import com.oxygen.shortlink.project.dao.mapper.ShortLinkMapper;
 import com.oxygen.shortlink.project.dto.req.ShortLinkCreateReqDTO;
@@ -46,6 +52,7 @@ import org.jsoup.nodes.Element;
 import org.redisson.api.RBloomFilter;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
@@ -77,6 +84,11 @@ public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLink
     private final RedissonClient redissonClient;
 
     private final LinkAccessStatsMapper linkAccessStatsMapper;
+
+    private final LinkLocaleStatsMapper linkLocaleStatsMapper;
+
+    @Value("${short-link.stats.locale.amap-key}")
+    private String  ipKey;
 
 
     /**
@@ -343,6 +355,32 @@ public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLink
                     .date(new Date())
                     .build();
             linkAccessStatsMapper.shortLinkStats(linkAccessStatsDO);
+
+            // 调用高德IP定位解析api接口获取地区信息
+            Map<String, Object> map = new HashMap<>();
+            map.put("ip", actualIp);
+            map.put("key", ipKey);
+            String resultArea = HttpUtil.get(ShortLinkConstant.AMAP_REMOTE_URL, map);
+            JSONObject localeJsonObject = JSON.parseObject(resultArea);
+            String infocode = localeJsonObject.getString("infocode");
+            if (StrUtil.isNotBlank(infocode) && "10000".equals(infocode)) {
+                String province = localeJsonObject.getString("province");
+                String city = localeJsonObject.getString("city");
+                String adcode = localeJsonObject.getString("adcode");
+                boolean unKnowFlag = Objects.equals("[]", province);
+                LinkLocaleStatsDO linkLocaleStatsDO = LinkLocaleStatsDO.builder()
+                        .province(unKnowFlag ? "未知" : province)
+                        .city(unKnowFlag ? "未知" : city)
+                        .adcode(unKnowFlag ? "未知" : adcode)
+                        .country("中国")
+                        .cnt(1)
+                        .fullShortUrl(fullShortLink)
+                        .gid(gid)
+                        .date(new Date())
+                        .build();
+                linkLocaleStatsMapper.shortLinkLocaleState(linkLocaleStatsDO);
+            }
+
         } catch (Exception e) {
             log.error("短链接访问量统计异常", e);
         }

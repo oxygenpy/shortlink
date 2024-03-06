@@ -646,3 +646,7 @@ Yadmin/src/main/java/com/oxygen/shortlink/admin/remote/dto/req/RecycleBinRemoveR
 Tproject/src/main/java/com/oxygen/shortlink/project/dao/entity/LinkAccessStatsDO.java,2\0\20baa7b91807e6f88316b83862dcd9c70e971c48
 ˆ
 Xproject/src/main/java/com/oxygen/shortlink/project/dao/mapper/LinkAccessStatsMapper.java,7\6\76213cbd04fb085206b4002c7fcc2bf142cd6e8d
+„
+Tproject/src/main/java/com/oxygen/shortlink/project/dao/entity/LinkLocaleStatsDO.java,8\b\8bd835a7fdd6034efb2ce41f7c90d93868ce0bb0
+ˆ
+Xproject/src/main/java/com/oxygen/shortlink/project/dao/mapper/LinkLocaleStatsMapper.java,d\6\d62217c781d244f82a1f3fba2d3cca58d517f2e0
