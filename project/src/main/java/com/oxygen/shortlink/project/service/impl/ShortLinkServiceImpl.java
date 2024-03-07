@@ -369,14 +369,18 @@ public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLink
             String resultArea = HttpUtil.get(ShortLinkConstant.AMAP_REMOTE_URL, map);
             JSONObject localeJsonObject = JSON.parseObject(resultArea);
             String infocode = localeJsonObject.getString("infocode");
+            String province = "";
+            String city = "";
             if (StrUtil.isNotBlank(infocode) && "10000".equals(infocode)) {
-                String province = localeJsonObject.getString("province");
-                String city = localeJsonObject.getString("city");
+                province = localeJsonObject.getString("province");
+                city = localeJsonObject.getString("city");
                 String adcode = localeJsonObject.getString("adcode");
                 boolean unKnowFlag = Objects.equals("[]", province);
+                province = unKnowFlag ? "未知" : province;
+                city = unKnowFlag ? "未知" : city;
                 LinkLocaleStatsDO linkLocaleStatsDO = LinkLocaleStatsDO.builder()
-                        .province(unKnowFlag ? "未知" : province)
-                        .city(unKnowFlag ? "未知" : city)
+                        .province(province)
+                        .city(city)
                         .adcode(unKnowFlag ? "未知" : adcode)
                         .country("中国")
                         .cnt(1)
@@ -409,20 +413,10 @@ public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLink
                     .build();
             linkBrowserStatsMapper.shortLinkBrowserState(linkBrowserStatsDO);
 
-            // 保存短链接访问日志，可用于统计高频访问IP
-            LinkAccessLogsDO linkAccessLogsDO = LinkAccessLogsDO.builder()
-                    .user(uv.get())
-                    .ip(actualIp)
-                    .browser(browser)
-                    .os(os)
-                    .gid(gid)
-                    .fullShortUrl(fullShortLink)
-                    .build();
-            linkAccessLogsMapper.insert(linkAccessLogsDO);
-
             // 短链接访问设备记录
+            String device = LinkUtil.getDevice(((HttpServletRequest) request));
             LinkDeviceStatsDO linkDeviceStatsDO = LinkDeviceStatsDO.builder()
-                    .device(LinkUtil.getDevice(((HttpServletRequest) request)))
+                    .device(device)
                     .cnt(1)
                     .gid(gid)
                     .fullShortUrl(fullShortLink)
@@ -431,14 +425,29 @@ public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLink
             linkDeviceStatsMapper.shortLinkDeviceState(linkDeviceStatsDO);
 
             // 短链接访问网络类型记录
+            String network = LinkUtil.getNetwork(((HttpServletRequest) request));
             LinkNetworkStatsDO linkNetworkStatsDO = LinkNetworkStatsDO.builder()
-                    .network(LinkUtil.getNetwork(((HttpServletRequest) request)))
+                    .network(network)
                     .cnt(1)
                     .gid(gid)
                     .fullShortUrl(fullShortLink)
                     .date(new Date())
                     .build();
             linkNetworkStatsMapper.shortLinkNetworkState(linkNetworkStatsDO);
+
+            // 保存短链接访问日志，可用于统计高频访问IP
+            LinkAccessLogsDO linkAccessLogsDO = LinkAccessLogsDO.builder()
+                    .user(uv.get())
+                    .ip(actualIp)
+                    .browser(browser)
+                    .os(os)
+                    .network(network)
+                    .device(device)
+                    .locale(StrUtil.join("-", "中国", province, city))
+                    .gid(gid)
+                    .fullShortUrl(fullShortLink)
+                    .build();
+            linkAccessLogsMapper.insert(linkAccessLogsDO);
 
         } catch (Exception e) {
             log.error("短链接访问量统计异常", e);
