@@ -718,3 +718,11 @@ dadmin/src/main/java/com/oxygen/shortlink/admin/remote/dto/resp/ShortLinkStatsAc
 `admin/src/main/java/com/oxygen/shortlink/admin/remote/dto/resp/ShortLinkStatsNetworkRespDTO.java,3\7\37781d881f9090927e983ffd371d308f7ac730f3
 é
 ^admin/src/main/java/com/oxygen/shortlink/admin/remote/dto/resp/ShortLinkStatsTopIpRespDTO.java,c\c\ccbdc643c669d5667687f4d9a0c1856a140c578d
+ê
+`project/src/main/java/com/oxygen/shortlink/project/dto/req/ShortLinkStatsAccessRecordReqDTO.java,7\2\7252692e82710abed2a64ef1b0e4176e3b8cfa15
+í
+bproject/src/main/java/com/oxygen/shortlink/project/dto/resp/ShortLinkStatsAccessRecordRespDTO.java,2\e\2e5d7f5a39d8c4f761f433c12741ad1a7e6b2220
+ì
+cadmin/src/main/java/com/oxygen/shortlink/admin/remote/dto/req/ShortLinkStatsAccessRecordReqDTO.java,1\2\1257dad79db6a4994875f64198f5ad2d5bb1453e
+ï
+eadmin/src/main/java/com/oxygen/shortlink/admin/remote/dto/resp/ShortLinkStatsAccessRecordRespDTO.java,8\e\8e30b5d920d3ed1b857a836bd28a705b1ac40118

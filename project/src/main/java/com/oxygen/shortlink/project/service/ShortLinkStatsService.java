@@ -1,6 +1,9 @@
 package com.oxygen.shortlink.project.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.oxygen.shortlink.project.dto.req.ShortLinkStatsAccessRecordReqDTO;
 import com.oxygen.shortlink.project.dto.req.ShortLinkStatsReqDTO;
+import com.oxygen.shortlink.project.dto.resp.ShortLinkStatsAccessRecordRespDTO;
 import com.oxygen.shortlink.project.dto.resp.ShortLinkStatsRespDTO;
 
 /**
@@ -17,4 +20,11 @@ public interface ShortLinkStatsService {
      * @return 监控数据
      */
     ShortLinkStatsRespDTO oneShortLinkStats(ShortLinkStatsReqDTO requestParam);
+
+    /**
+     * 单个短链接指定时间内的访客记录
+     * @param requestParam
+     * @return
+     */
+    IPage<ShortLinkStatsAccessRecordRespDTO> shortLinkStatsAccessRecord(ShortLinkStatsAccessRecordReqDTO requestParam);
 }
