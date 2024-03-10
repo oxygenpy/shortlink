@@ -1,6 +1,7 @@
 package com.oxygen.shortlink.project.dto.req;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.oxygen.shortlink.project.dao.entity.ShortLinkDO;
 import lombok.Data;
 
 /**
@@ -10,7 +11,7 @@ import lombok.Data;
  * @date 1.0
  */
 @Data
-public class ShortLinkPageReqDTO extends Page {
+public class ShortLinkPageReqDTO extends Page<ShortLinkDO> {
 
     /**
      * 分组标识
