@@ -121,6 +121,9 @@ public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLink
                 .validDate(requestParam.getValidDate())
                 .describe(requestParam.getDescribe())
                 .enableStatus(0)
+                .totalPv(0)
+                .totalUv(0)
+                .totalUip(0)
                 .favicon(getFavicon(requestParam.getOriginUrl()))
                 // 设置hash码与短链接
                 .shortUri(suffix)
@@ -163,7 +166,7 @@ public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLink
      * @return
      */
     @Override
-    public IPage<ShortLinkPageRespDTO> pageShortLink(ShortLinkPageReqDTO requestParam) {
+    public IPage<ShortLinkPageRespDTO>  pageShortLink(ShortLinkPageReqDTO requestParam) {
         LambdaQueryWrapper<ShortLinkDO> queryWrapper = Wrappers.lambdaQuery(ShortLinkDO.class)
                 .eq(ShortLinkDO::getGid, requestParam.getGid())
                 .eq(ShortLinkDO::getEnableStatus, 0)
@@ -304,7 +307,13 @@ public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLink
 
     }
 
-
+    /**
+     * 短链接监控
+     * @param fullShortLink
+     * @param gid
+     * @param request
+     * @param response
+     */
     private void shortLinkStats(String fullShortLink, String gid, ServletRequest request, ServletResponse response) {
         AtomicBoolean uvFirstFlag = new AtomicBoolean();
         AtomicReference<String> uv = new AtomicReference<>();
@@ -448,6 +457,8 @@ public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLink
                     .fullShortUrl(fullShortLink)
                     .build();
             linkAccessLogsMapper.insert(linkAccessLogsDO);
+
+            baseMapper.incrementStats(gid, fullShortLink, 1, uvFirstFlag.get() ? 1 : 0, uipFlag ? 1 : 0);
 
         } catch (Exception e) {
             log.error("短链接访问量统计异常", e);
