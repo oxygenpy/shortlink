@@ -92,6 +92,8 @@ public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLink
 
     private final LinkNetworkStatsMapper linkNetworkStatsMapper;
 
+    private final LinkStatsTodayMapper linkStatsTodayMapper;
+
     @Value("${short-link.stats.locale.amap-key}")
     private String  ipKey;
 
@@ -458,7 +460,19 @@ public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLink
                     .build();
             linkAccessLogsMapper.insert(linkAccessLogsDO);
 
+            // 向短链接表中的历史pv、uv、uip中累加
             baseMapper.incrementStats(gid, fullShortLink, 1, uvFirstFlag.get() ? 1 : 0, uipFlag ? 1 : 0);
+
+            // 统计今日pv、uv、uip，唯一索引为url+gid+date，其中date只精确到日，这样每天统计的都会累加，新一天的第一条会新增
+            LinkStatsTodayDO linkStatsTodayDO = LinkStatsTodayDO.builder()
+                    .todayPv(1)
+                    .todayUv(uvFirstFlag.get() ? 1 : 0)
+                    .todayUip(uipFlag ? 1 : 0)
+                    .gid(gid)
+                    .fullShortUrl(fullShortLink)
+                    .date(new Date())
+                    .build();
+            linkStatsTodayMapper.shortLinkTodayState(linkStatsTodayDO);
 
         } catch (Exception e) {
             log.error("短链接访问量统计异常", e);
