@@ -734,3 +734,7 @@ Wproject/src/main/java/com/oxygen/shortlink/project/dao/mapper/LinkStatsTodayMap
 Yproject/src/main/java/com/oxygen/shortlink/project/dto/req/ShortLinkGroupStatsReqDTO.java,a\4\a4ca31767b88b181578736fd100ba170b26153d0
 Œ
 \admin/src/main/java/com/oxygen/shortlink/admin/remote/dto/req/ShortLinkGroupStatsReqDTO.java,f\8\f8daec248ff16bd86b8036506ce888c9a2ca218b
+•
+eproject/src/main/java/com/oxygen/shortlink/project/dto/req/ShortLinkGroupStatsAccessRecordReqDTO.java,0\2\022673f1f9e465c5a172e5c01f37fdfff83b099e
+˜
+hadmin/src/main/java/com/oxygen/shortlink/admin/remote/dto/req/ShortLinkGroupStatsAccessRecordReqDTO.java,f\3\f3003ac82ac9bdb13c9afaab5fbe4cef85c24b03
