@@ -3,6 +3,7 @@ package com.oxygen.shortlink.admin.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.oxygen.shortlink.admin.common.convention.result.Result;
 import com.oxygen.shortlink.admin.remote.ShortLinkRemoteService;
+import com.oxygen.shortlink.admin.remote.dto.req.ShortLinkGroupStatsReqDTO;
 import com.oxygen.shortlink.admin.remote.dto.req.ShortLinkStatsAccessRecordReqDTO;
 import com.oxygen.shortlink.admin.remote.dto.req.ShortLinkStatsReqDTO;
 import com.oxygen.shortlink.admin.remote.dto.resp.ShortLinkStatsAccessRecordRespDTO;
@@ -40,4 +41,12 @@ public class ShortLinkStatsController {
         return shortLinkRemoteService.shortLinkStatsAccessRecord(requestParam);
     }
 
+
+    /**
+     * 访问分组短链接指定时间内监控数据
+     */
+    @GetMapping("/api/short-link/admin/v1/stats/group")
+    public Result<ShortLinkStatsRespDTO> groupShortLinkStats(ShortLinkGroupStatsReqDTO requestParam) {
+        return shortLinkRemoteService.groupShortLinkStats(requestParam);
+    }
 }
