@@ -97,6 +97,8 @@ public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLink
     @Value("${short-link.stats.locale.amap-key}")
     private String  ipKey;
 
+    @Value("${short-link.domain.default}")
+    private String createShortLinkDefaultDomain;
 
     /**
      * 创建短链接
@@ -109,13 +111,13 @@ public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLink
         String suffix = generatorSuffix(requestParam);
 
         // String fullShortUrl = StrBuilder.create(requestParam.getDomain())
-        String fullShortUrl = StrBuilder.create("nurl.ink:8001")
+        String fullShortUrl = StrBuilder.create(createShortLinkDefaultDomain)
                 .append("/")
                 .append(suffix)
                 .toString();
         ShortLinkDO shortLink = ShortLinkDO.builder()
                 // .domain(requestParam.getDomain())
-                .domain("nurl.ink:8001")
+                .domain(createShortLinkDefaultDomain)
                 .originUrl(requestParam.getOriginUrl())
                 .gid(requestParam.getGid())
                 .createdType(requestParam.getCreatedType())
@@ -490,7 +492,7 @@ public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLink
             // 每次重试给原始链接拼接当前毫秒数避免重复生成，字符串不变每次hash自然一样
             String originUrl = requestParam.getOriginUrl() + System.currentTimeMillis();
             shortUrl = HashUtil.hashToBase62(originUrl);
-            if (!shortUriCreateCachePenetrationBloomFilter.contains("nurl.ink:8001" + "/" + shortUrl)) {
+            if (!shortUriCreateCachePenetrationBloomFilter.contains(createShortLinkDefaultDomain + "/" + shortUrl)) {
                 break;
             }
             customGenerateNum++;
