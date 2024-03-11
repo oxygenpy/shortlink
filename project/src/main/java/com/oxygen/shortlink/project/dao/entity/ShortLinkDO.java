@@ -104,4 +104,8 @@ public class ShortLinkDO extends BaseDO {
      */
     private Integer totalUip;
 
+    /**
+     * 删除时间
+     */
+    private Long delTime;
 }

@@ -7,10 +7,7 @@ import com.oxygen.shortlink.project.dto.req.ShortLinkBatchCreateReqDTO;
 import com.oxygen.shortlink.project.dto.req.ShortLinkCreateReqDTO;
 import com.oxygen.shortlink.project.dto.req.ShortLinkPageReqDTO;
 import com.oxygen.shortlink.project.dto.req.ShortLinkUpdateReqDTO;
-import com.oxygen.shortlink.project.dto.resp.ShortLinkBatchCreateRespDTO;
-import com.oxygen.shortlink.project.dto.resp.ShortLinkCreateRespDTO;
-import com.oxygen.shortlink.project.dto.resp.ShortLinkGroupCountRespDTO;
-import com.oxygen.shortlink.project.dto.resp.ShortLinkPageRespDTO;
+import com.oxygen.shortlink.project.dto.resp.*;
 import com.oxygen.shortlink.project.service.ShortLinkService;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
@@ -89,7 +86,7 @@ public class ShortLinkController {
      * 查询分组下短链接数量
      */
     @GetMapping("/api/short-link/v1/count")
-    private Result<List<ShortLinkGroupCountRespDTO>> listGroupShortLinkCount(@RequestParam("requestParam") List<String> requestParam) {
+    private Result<List<ShortLinkGroupCountQueryRespDTO>> listGroupShortLinkCount(@RequestParam("requestParam") List<String> requestParam) {
         return Results.success(shortLinkService.listGroupShortLinkCount(requestParam));
     }
 

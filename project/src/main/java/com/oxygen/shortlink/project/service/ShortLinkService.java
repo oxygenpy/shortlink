@@ -3,14 +3,12 @@ package com.oxygen.shortlink.project.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.oxygen.shortlink.project.dao.entity.ShortLinkDO;
+import com.oxygen.shortlink.project.dto.biz.ShortLinkStatsRecordDTO;
 import com.oxygen.shortlink.project.dto.req.ShortLinkBatchCreateReqDTO;
 import com.oxygen.shortlink.project.dto.req.ShortLinkCreateReqDTO;
 import com.oxygen.shortlink.project.dto.req.ShortLinkPageReqDTO;
 import com.oxygen.shortlink.project.dto.req.ShortLinkUpdateReqDTO;
-import com.oxygen.shortlink.project.dto.resp.ShortLinkBatchCreateRespDTO;
-import com.oxygen.shortlink.project.dto.resp.ShortLinkCreateRespDTO;
-import com.oxygen.shortlink.project.dto.resp.ShortLinkGroupCountRespDTO;
-import com.oxygen.shortlink.project.dto.resp.ShortLinkPageRespDTO;
+import com.oxygen.shortlink.project.dto.resp.*;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 
@@ -42,7 +40,7 @@ public interface ShortLinkService extends IService<ShortLinkDO> {
      * @param requestParam
      * @return
      */
-    List<ShortLinkGroupCountRespDTO> listGroupShortLinkCount(List<String> requestParam);
+    List<ShortLinkGroupCountQueryRespDTO> listGroupShortLinkCount(List<String> requestParam);
 
     /**
      * 修改短链接
@@ -66,4 +64,13 @@ public interface ShortLinkService extends IService<ShortLinkDO> {
      * @return 批量创建短链接返回参数
      */
     ShortLinkBatchCreateRespDTO batchCreateShortLink(ShortLinkBatchCreateReqDTO requestParam);
+
+    /**
+     * 短链接统计
+     *
+     * @param fullShortUrl         完整短链接
+     * @param gid                  分组标识
+     * @param shortLinkStatsRecord 短链接统计实体参数
+     */
+    void shortLinkStats(String fullShortUrl, String gid, ShortLinkStatsRecordDTO shortLinkStatsRecord);
 }
