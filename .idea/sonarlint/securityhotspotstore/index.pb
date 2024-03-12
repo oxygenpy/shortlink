@@ -766,3 +766,9 @@ Wproject/src/main/java/com/oxygen/shortlink/project/dto/biz/ShortLinkStatsRecord
 ^project/src/main/java/com/oxygen/shortlink/project/service/impl/LinkStatsTodayServiceImpl.java,5\0\50d8dad60d3325f9ea91416cffade36048711f14
 è
 _project/src/main/java/com/oxygen/shortlink/project/config/GotoDomainWhiteListConfiguration.java,2\d\2df9e0c335e671495eab9a305731278407cd7aed
+ã
+[admin/src/main/java/com/oxygen/shortlink/admin/config/UserFlowRiskControlConfiguration.java,0\e\0ee28a8dadafe293b30bc234d4b83782100fe09f
+|
+Ladmin/src/main/java/com/oxygen/shortlink/admin/config/UserConfiguration.java,c\1\c1c2024c4e7f9b8fbc5c3f20c418b63827ab2b03
+ç
+]admin/src/main/java/com/oxygen/shortlink/admin/common/biz/user/UserFlowRiskControlFilter.java,2\4\24aa6c700842975548c0545ee673e14234a1e21c

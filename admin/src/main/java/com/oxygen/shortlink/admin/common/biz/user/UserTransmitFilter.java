@@ -8,7 +8,7 @@ import com.oxygen.shortlink.admin.common.convention.result.Results;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
 import java.io.IOException;
@@ -24,7 +24,7 @@ import static com.oxygen.shortlink.admin.common.enums.UserErrorCodeEnum.USER_TOK
  * @create 2024-02-18 19:34
  * @date 1.0
  */
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class UserTransmitFilter implements Filter {
 
     private final StringRedisTemplate stringRedisTemplate;
