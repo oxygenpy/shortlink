@@ -764,3 +764,5 @@ Wproject/src/main/java/com/oxygen/shortlink/project/dto/biz/ShortLinkStatsRecord
 `project/src/main/java/com/oxygen/shortlink/project/dto/resp/ShortLinkGroupCountQueryRespDTO.java,7\e\7ea2577f162360243a544a8810cf35f0b3f0e566
 é
 ^project/src/main/java/com/oxygen/shortlink/project/service/impl/LinkStatsTodayServiceImpl.java,5\0\50d8dad60d3325f9ea91416cffade36048711f14
+è
+_project/src/main/java/com/oxygen/shortlink/project/config/GotoDomainWhiteListConfiguration.java,2\d\2df9e0c335e671495eab9a305731278407cd7aed
