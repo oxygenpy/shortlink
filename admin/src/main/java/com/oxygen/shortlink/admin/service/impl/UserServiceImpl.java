@@ -1,6 +1,7 @@
 package com.oxygen.shortlink.admin.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.lang.UUID;
 import com.alibaba.fastjson2.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -28,9 +29,11 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static com.oxygen.shortlink.admin.common.constants.RedisCacheConstant.LOCK_USER_REGISTER_KEY;
+import static com.oxygen.shortlink.admin.common.constants.RedisCacheConstant.USER_LOGIN_KEY;
 import static com.oxygen.shortlink.admin.common.enums.UserErrorCodeEnum.*;
 
 /**
@@ -140,10 +143,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
         if (userDO == null) {
             throw new ClientException("用户不存在");
         }
-        String LOGIN_KEY = "login_" + requestParam.getUsername();
-        Boolean isTrue = stringRedisTemplate.hasKey(LOGIN_KEY);
-        if (isTrue != null && isTrue) {
-            throw new ClientException("用户已登录");
+        Map<Object, Object> hasLoginMap = stringRedisTemplate.opsForHash().entries(USER_LOGIN_KEY + requestParam.getUsername());
+        if (CollUtil.isNotEmpty(hasLoginMap)) {
+            stringRedisTemplate.expire(USER_LOGIN_KEY + requestParam.getUsername(), 30L, TimeUnit.MINUTES);
+            String token = hasLoginMap.keySet().stream()
+                    .findFirst()
+                    .map(Object::toString)
+                    .orElseThrow(() -> new ClientException("用户登录错误"));
+            return new UserLoginRespDTO(token);
         }
         /**
          * Hash
@@ -153,8 +160,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
          *  Val：JSON 字符串（用户信息）
          */
         String uuid = UUID.randomUUID().toString();
-        stringRedisTemplate.opsForHash().put(LOGIN_KEY, uuid, JSON.toJSONString(userDO));
-        stringRedisTemplate.expire(LOGIN_KEY, 30L, TimeUnit.DAYS);
+        stringRedisTemplate.opsForHash().put(USER_LOGIN_KEY, uuid, JSON.toJSONString(userDO));
+        stringRedisTemplate.expire(USER_LOGIN_KEY, 30L, TimeUnit.DAYS);
         return new UserLoginRespDTO(uuid);
     }
 
