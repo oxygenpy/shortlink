@@ -782,3 +782,5 @@ Wproject/src/main/java/com/oxygen/shortlink/project/config/RedisStreamConfigurat
 ^project/src/main/java/com/oxygen/shortlink/project/mq/producer/ShortLinkStatsSaveProducer.java,4\c\4c305750a909092d04ce181ca84fbbd06f8be189
 “
 cproject/src/main/java/com/oxygen/shortlink/project/mq/idempotent/MessageQueueIdempotentHandler.java,0\8\08260146ce85d5eebff087731664996d4b66e1bb
+•
+eproject/src/main/java/com/oxygen/shortlink/project/initialize/ShortLinkStatsStreamInitializeTask.java,1\f\1fa347cdd18cdcbcc957bb0850b92f278fb5fce6
