@@ -93,8 +93,6 @@ Oadmin/src/main/java/com/oxygen/shortlink/admin/common/biz/user/UserInfoDTO.java
 Oadmin/src/main/java/com/oxygen/shortlink/admin/common/biz/user/UserContext.java,5\d\5dcbaf4d9e9fd0546b48a2968f9a838b791a406b
 Ü
 Vadmin/src/main/java/com/oxygen/shortlink/admin/common/biz/user/UserTransmitFilter.java,4\7\473a3a91e7beb68cb71cbb48aec4c001ee43420f
-Ö
-Uadmin/src/main/java/com/oxygen/shortlink/admin/common/biz/user/UserConfiguration.java,a\7\a744b6a25fc2930093abbe2c605b45bbc322305f
 Å
 Q.idea/sonarlint/securityhotspotstore/6/4/64278fbc09b4affeed29636ac0eaa6b795a2a9d2,4\c\4cd781db744a9d709d6c9464e3a24c6cb5222fd7
 w
@@ -772,3 +770,7 @@ _project/src/main/java/com/oxygen/shortlink/project/config/GotoDomainWhiteListCo
 Ladmin/src/main/java/com/oxygen/shortlink/admin/config/UserConfiguration.java,c\1\c1c2024c4e7f9b8fbc5c3f20c418b63827ab2b03
 ç
 ]admin/src/main/java/com/oxygen/shortlink/admin/common/biz/user/UserFlowRiskControlFilter.java,2\4\24aa6c700842975548c0545ee673e14234a1e21c
+Å
+Qproject/src/main/java/com/oxygen/shortlink/project/config/SentinelRuleConfig.java,d\b\db487f04b084a61222ebafd708d6a0e2eaad8d2f
+Ç
+Rproject/src/main/java/com/oxygen/shortlink/project/handler/CustomBlockHandler.java,0\0\00a462bfcbaaf458df878e5d6a3c0fbcb767df66
