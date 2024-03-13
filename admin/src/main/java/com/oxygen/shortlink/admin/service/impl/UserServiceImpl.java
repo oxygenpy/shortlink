@@ -174,7 +174,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
      */
     @Override
     public Boolean checkLogin(String username, String token) {
-        return stringRedisTemplate.opsForHash().get("login_" + username, token) != null;
+        return stringRedisTemplate.opsForHash().get(USER_LOGIN_KEY + username, token) != null;
     }
 
     /**
@@ -189,7 +189,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
         if (!checkLogin(username, token)) {
             throw new ClientException("用户未登录或登录过期");
         }
-        stringRedisTemplate.delete("login_" + username);
+        stringRedisTemplate.delete(USER_LOGIN_KEY + username);
     }
 
 
