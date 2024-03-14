@@ -1,7 +1,3 @@
 
 u
-java:S2234S"XParameters to hasGid have the same names but not the same order as the method arguments.(½ñ¸ç8ş£¾•ã1
-H
-java:S2201r"+The return value of "collect" must be used.(œçÖß8ùË¼•ã1
-o
-java:S6204r"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(œçÖß8úË¼•ã1
+java:S2234S"XParameters to hasGid have the same names but not the same order as the method arguments.(½ñ¸ç8æ†¸èã1

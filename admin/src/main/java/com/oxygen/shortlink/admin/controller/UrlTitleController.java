@@ -1,7 +1,8 @@
 package com.oxygen.shortlink.admin.controller;
 
 import com.oxygen.shortlink.admin.common.convention.result.Result;
-import com.oxygen.shortlink.admin.remote.ShortLinkRemoteService;
+import com.oxygen.shortlink.admin.remote.ShortLinkActualRemoteService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,16 +14,17 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 1.0
  */
 @RestController
+@RequiredArgsConstructor
 public class UrlTitleController {
 
-    ShortLinkRemoteService shortLinKRemoteService = new ShortLinkRemoteService(){};
+    private final ShortLinkActualRemoteService shortLinkActualRemoteService;
 
     /**
-     * 通过 url 获取 网站标题
+     * 根据URL获取对应网站的标题
      */
-    @GetMapping("/api/short-link/v1/title")
+    @GetMapping("/api/short-link/admin/v1/title")
     public Result<String> getTitleByUrl(@RequestParam("url") String url) {
-        return shortLinKRemoteService.getTitleByUrl(url);
+        return shortLinkActualRemoteService.getTitleByUrl(url);
     }
 
 
