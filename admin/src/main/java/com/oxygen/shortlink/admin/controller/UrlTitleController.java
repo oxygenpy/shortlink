@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @create 2024-03-01 21:38
  * @date 1.0
  */
-@RestController
+@RestController(value = "urlTitleControllerByAdmin")
 @RequiredArgsConstructor
 public class UrlTitleController {
 

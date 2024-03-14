@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @create 2024-03-04 20:45
  * @date 1.0
  */
-@RestController
+@RestController(value = "recycleBinControllerByAdmin")
 @RequiredArgsConstructor
 public class RecycleBinController {
 

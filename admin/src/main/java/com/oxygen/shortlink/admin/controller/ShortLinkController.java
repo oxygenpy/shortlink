@@ -29,7 +29,7 @@ import java.util.List;
  * @create 2024-02-22 15:06
  * @date 1.0
  */
-@RestController
+@RestController(value = "shortLinkControllerByAdmin")
 @RequiredArgsConstructor
 public class ShortLinkController {
 

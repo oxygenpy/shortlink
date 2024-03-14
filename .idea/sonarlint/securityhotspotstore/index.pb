@@ -790,3 +790,9 @@ Egateway/src/main/java/com/oxygen/shortlink/gateway/config/Config.java,9\0\90d3
 Ngateway/src/main/java/com/oxygen/shortlink/gateway/dto/GatewayErrorResult.java,d\a\da34a1b55029d45cd4538ff9f4c0c9d8242367b6
 ê
 `gateway/src/main/java/com/oxygen/shortlink/gateway/filter/TokenValidateGatewayFilterFactory.java,1\3\132da0aa172c9347987cd6016fb74891179c67aa
+h
+8aggregation/src/main/java/com/oxygen/shortlink/Main.java,6\0\6031e96276f10ec2fe2d947a6638dcf34baf3361
+C
+aggregation/pom.xml,4\1\41585f5823987401bdcf87f9a4eb7eba6889bcd9
+Å
+Qaggregation/src/main/java/com/oxygen/shortlink/AggregationServiceApplication.java,e\c\ec44f874566aeb31fd16df53c919f5c715ed065c

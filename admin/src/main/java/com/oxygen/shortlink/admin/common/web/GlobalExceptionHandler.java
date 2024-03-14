@@ -25,7 +25,7 @@ import java.util.Optional;
  * @create 2024-01-22 21:46
  * @date 1.0
  */
-@Component
+@Component("globalExceptionHandlerByAdmin")
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {

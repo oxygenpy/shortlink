@@ -1,8 +1,8 @@
 package com.oxygen.shortlink.admin.config;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -13,8 +13,8 @@ import java.util.Date;
  * @create 2024-01-24 19:53
  * @date 1.0
  */
-@Slf4j
-@Component
+@Primary
+@Component(value = "myMetaObjectHandlerByAdmin")
 public class MyMetaObjectHandler implements MetaObjectHandler {
 
     @Override

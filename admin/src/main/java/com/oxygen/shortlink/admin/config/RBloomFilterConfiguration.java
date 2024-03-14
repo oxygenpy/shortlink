@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
  * @create 2024-01-24 17:11
  * @date 1.0
  */
-@Configuration
+@Configuration(value = "rBloomFilterConfigurationByAdmin")
 public class RBloomFilterConfiguration {
 
     /**
