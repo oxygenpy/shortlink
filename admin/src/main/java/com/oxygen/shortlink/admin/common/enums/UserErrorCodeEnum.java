@@ -9,7 +9,6 @@ import com.oxygen.shortlink.admin.common.convention.errorcode.IErrorCode;
  * @date 1.0
  */
 public enum UserErrorCodeEnum implements IErrorCode {
-    USER_TOKEN_FAIL("A000200", "用户Token验证失败"),
 
     USER_NULL("B000200", "用户记录不存在"),
 

@@ -782,3 +782,11 @@ eproject/src/main/java/com/oxygen/shortlink/project/initialize/ShortLinkStatsStr
 Wadmin/src/main/java/com/oxygen/shortlink/admin/remote/ShortLinkActualRemoteService.java,f\a\fa92da9ab174f7ec203086e6ce05a7d45a2de280
 ì
 cadmin/src/main/java/com/oxygen/shortlink/admin/remote/dto/resp/ShortLinkGroupCountQueryRespDTO.java,5\e\5e5233e7edbb22ce8cab6d2c3e46533933e74515
+Å
+Qgateway/src/main/java/com/oxygen/shortlink/gateway/GatewayServiceApplication.java,1\f\1f0c24ed915579bf059668042d1b10dff3928399
+u
+Egateway/src/main/java/com/oxygen/shortlink/gateway/config/Config.java,9\0\90d3efc6399b38e1668d7e5f75bce445824a20b6
+~
+Ngateway/src/main/java/com/oxygen/shortlink/gateway/dto/GatewayErrorResult.java,d\a\da34a1b55029d45cd4538ff9f4c0c9d8242367b6
+ê
+`gateway/src/main/java/com/oxygen/shortlink/gateway/filter/TokenValidateGatewayFilterFactory.java,1\3\132da0aa172c9347987cd6016fb74891179c67aa
